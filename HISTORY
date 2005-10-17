@@ -1,0 +1,32 @@
+(rel. 0.3.1) 16/2/2004 - Speed-up patch from Daniel Fahlgren. Removed
+	unecessary getname native function as real names are loaded into
+	UfsAclEntry class as the user list is constructed thus cutting out
+	uneccessary calls to getpwent/getpwuid when sorting the user/group
+	list. Add Dialog now appears much faster for large user/group lists.
+
+(rel. 0.3) 10/2/2004 - Patch supplied by Daniel Fahlgren
+	(http://www.cs.umu.se/~fahlgren/) to prevent buffer overflows in
+	C code, to display users as "[username] Real Name" and to delimit
+	the real name at the first "," character in the passwd entry.
+
+(rel. 0.2.1) 9/2/2004 - Bug fix: "Add Default" button was not being enabled
+	in Add dialog when default acl entries were added to acl list due to
+	DEFAULTS flag being set on creation of Add dialog and not being 
+	updated to reflect changes in acl.
+
+(rel. 0.2) 30/1/2004 - Bug fix: now root is allowed to edit facls that don't
+	belong to them. Also changed java package structure.
+
+(rel. 0.2b) 25/7/2003 - Added a progress monitor for when loading names into
+	the Add Dialog. Dialog is kept in memory and just made visible when
+	required so is faster. Changed all Vectors to ArrayLists to hopefully
+	speed things up. Changed the ListSelectionListener code for the main
+	ACL list so that something is always selected. Made the UnixPerm class
+	neater.
+
+(rel. 0.1.1) 10/7/2003 - Bug fix: change comparator in UfsAclEntry so that 
+	it distinguishes between usernames and groups with the same gecos field.
+	Previously if they were the same only one would be displayed in the Add
+	dialog e.g. user "nobody" and group "nobody".
+
+(rel. 0.1beta) 28/4/2003 - first working version

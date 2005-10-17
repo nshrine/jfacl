@@ -1,0 +1,23 @@
+CC=gcc
+CFLAGS=-I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/solaris -Wall -ansi -pedantic
+LDFLAGS=-G -lsec
+
+OBJS=jacl.o getname.o getall.o
+
+all: libjacl.so
+	ant
+
+libjacl.so: $(OBJS)
+	$(CC) -o $@ $(OBJS) $(LDFLAGS)
+
+.c.o :
+	$(CC) $(CFLAGS) $(INCLUDE) -c $*.c
+
+install: libjacl.so
+	/usr/sbin/install -d ../lib
+	/usr/sbin/install -f ../lib libjacl.so
+	ant install
+
+clean::
+	$(RM) libjacl.so *.o
+	ant clean

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<project name="jfacl" default="compile" basedir="..">
+
+	<target name="init">
+		<mkdir dir="build"/>
+	</target>
+
+	<target name="compile" depends="init">
+		<javac srcdir="src" destdir="build"/>
+	</target>
+
+	<target name="install" depends="compile">
+		<jar jarfile="jfacl.jar" basedir="build"/>
+	</target>
+
+	<target name="clean">
+		<delete dir="build"/>
+	</target>
+
+</project>

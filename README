@@ -1,0 +1,49 @@
+
+		JFACL 0.3.1
+
+About
+=====
+jfacl is a GUI for editing Solaris Access Control Lists (ACLS) and is 
+intended to be an easy alternative to the Solaris getfacl/setfacl 
+commmands, primarily for Windows users hence the look.
+
+Licence
+=======
+See the file COPYING
+
+Requirements
+============
+Solaris 7 upwards
+Java 2 Runtime 1.4.0 upwards
+
+For rebuilding:
+Java 2 SDK 1.4.0 upwards
+Jakarta Ant 1.4.1 upwards (http://ant.apache.org)
+gcc 2.95.3 (untested with later versions)
+
+Installation
+============
+Edit the jfacl script and set JAVA_HOME to point to your
+java installation and BASE to the directory in which you unpacked jfacl.
+Add BASE to your path then run jfacl as:
+
+	jfacl <file or dir> [[<file or dir>]...]
+
+
+Rebuilding
+==========
+In the directory src do:
+make (you need ant in your path)
+make install (installs lib/libjacl.so and jfacl.jar)
+
+Bugs/Issues
+===========
+Java so it runs slow! On a system with lots of users the
+"Select Users or Groups" dialog can take a few seconds to appear
+whilst the list is sorted alphabetically: on our system with over
+1000 users and groups it takes 10-15 secs on a 360 Mhz Ultra 5.
+
+Please report any bugs/suggestions to Nick Shrine
+
+	N.R.Shrine@cs.bham.ac.uk
+
