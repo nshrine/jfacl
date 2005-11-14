@@ -9,7 +9,7 @@
 #include <acl/libacl.h>
 #include <stdlib.h>
 #include <errno.h>
-#include "getacl.h"
+#include "uacl.h"
 
 static int getmode(acl_permset_t permset)
 {
@@ -120,4 +120,17 @@ int getacl(const char *pathp, aclent_t *aclpbuf)
 	}
 	
 	return i;
+}
+
+int setacl(const char* pathp, aclent_t* aclpbuf) {
+	return 0;
+}
+
+int _acl(const char* pathp, int op, aclent_t* aclpbuf)
+{
+	if (op == GETACL) {
+		return getacl(pathp, aclpbuf);
+	} else if (op == SETACL) {
+		return setacl(pathp, aclpbuf);
+	}
 }

@@ -8,14 +8,15 @@
 #include <grp.h>
 #include <alloca.h>
 #include <errno.h>
+#include <string.h>
 #include <strings.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include "getname.h"
 
 #ifdef LINUX
-#include "linux/getacl.h"
-#define acl(A, B, C, D) getacl(A, D)
+#include "linux/uacl.h"
+#define acl(A, B, C, D) _acl(A, B, D)
 #define USER ACL_USER
 #define USER_OBJ ACL_USER_OBJ
 #define GROUP ACL_GROUP
@@ -24,10 +25,11 @@
 
 extern int  snprintf(char *, size_t, const char *, ...);
 
-JNIEXPORT jobject JNICALL Java_uk_ac_bham_cs_security_acl_UfsAcl_getacl(JNIEnv *env, jclass obj, jstring path)
-{    
+JNIEXPORT jobject JNICALL Java_uk_ac_bham_cs_security_acl_UfsAcl_getacl(
+		JNIEnv *env, jclass obj, jstring path)
+{
     int i, length;
-    const char *pathp;
+    const char* pathp;
     char *msg;
     char *entry_name = NULL;
     aclent_t aclpbuf[MAX_ACL_ENTRIES];
@@ -79,7 +81,8 @@ JNIEXPORT jobject JNICALL Java_uk_ac_bham_cs_security_acl_UfsAcl_getacl(JNIEnv *
             bzero(entry_name, 256);
             snprintf(entry_name, 256, "%d", aclpbuf[i].a_id);
         }
-        aclentry = (*env)->NewObject(env, AclEntCls, AclEntCid, aclpbuf[i].a_type, aclpbuf[i].a_id, (*env)->NewStringUTF(env, entry_name), aclpbuf[i].a_perm);
+        aclentry = (*env)->NewObject(env, AclEntCls, AclEntCid, aclpbuf[i].a_type, aclpbuf[i].a_id,
+				(*env)->NewStringUTF(env, entry_name), aclpbuf[i].a_perm);
         (*env)->CallVoidMethod(env, aclentries, ArrayListAid, aclentry);
         free(entry_name); 
     }
@@ -88,7 +91,7 @@ JNIEXPORT jobject JNICALL Java_uk_ac_bham_cs_security_acl_UfsAcl_getacl(JNIEnv *
 
 JNIEXPORT jint JNICALL Java_uk_ac_bham_cs_security_acl_UfsAcl_setacl(JNIEnv *env, jclass obj, jstring path, jobject aclentries, jint size)
 {
-    /* int i, which, length;
+    int i, which, length;
     const char *pathp;
     char *msg;
     jobject entry;
@@ -107,7 +110,7 @@ JNIEXPORT jint JNICALL Java_uk_ac_bham_cs_security_acl_UfsAcl_setacl(JNIEnv *env
     
     pathp = (*env)->GetStringUTFChars(env, path, 0);
     
-    for(i=0; i<size; i++) {
+    for (i=0; i<size; i++) {
         entry = (*env)->CallObjectMethod(env, aclentries, ArrayListGid, i);
         aclpbuf[i].a_type = (*env)->CallIntMethod(env, entry, AclEntTid);
         aclpbuf[i].a_id = (*env)->CallIntMethod(env, entry, AclEntNid);
@@ -115,10 +118,10 @@ JNIEXPORT jint JNICALL Java_uk_ac_bham_cs_security_acl_UfsAcl_setacl(JNIEnv *env
     }
     
     n = aclcheck(aclpbuf, size, &which);
-    if(n != 0) {
+    if (n != 0) {
         length = sizeof(char) * strlen(strerror(errno)) + 13 * sizeof(char) ;
         msg = alloca(length);
-        if(msg) {
+        if (msg) {
             bzero(msg, length);
             snprintf(msg, length, "CHK: [%d] %s", errno, strerror(errno));
             (*env)->ThrowNew(env, AclExCls, msg);
@@ -127,16 +130,15 @@ JNIEXPORT jint JNICALL Java_uk_ac_bham_cs_security_acl_UfsAcl_setacl(JNIEnv *env
     }
     n = acl(pathp, SETACL, size, aclpbuf);
     (*env)->ReleaseStringUTFChars(env, path, pathp);
-    if(n == -1) {
+    if (n == -1) {
         length = sizeof(char) * strlen(strerror(errno)) + 13 * sizeof(char) ;
         msg = alloca(length);
-        if(msg) {
+        if (msg) {
             bzero(msg, length);
             snprintf(msg, length, "ACL: [%d] %s", errno, strerror(errno));
             (*env)->ThrowNew(env, AclExCls, msg);
         }
         return -1;
     }
-    return n; */
-	return 0;
+    return n;
 }
