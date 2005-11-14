@@ -9,4 +9,4 @@ typedef struct acl {
 	mode_t	a_perm;		/* the permission field */
 } aclent_t;
 
-int getacl(const char *, struct aclent_t *);
+int getacl(const char*, aclent_t*);
