@@ -16,7 +16,7 @@
 
 #ifdef LINUX
 #include "linux/uacl.h"
-#define acl(A, B, C, D) _acl(A, B, D)
+#define acl(A, B, C, D) _acl(A, B, C, D)
 #define USER ACL_USER
 #define USER_OBJ ACL_USER_OBJ
 #define GROUP ACL_GROUP
@@ -117,7 +117,7 @@ JNIEXPORT jint JNICALL Java_uk_ac_bham_cs_security_acl_UfsAcl_setacl(JNIEnv *env
         aclpbuf[i].a_perm = (*env)->CallIntMethod(env, entry, AclEntPid);
     }
     
-    n = aclcheck(aclpbuf, size, &which);
+    /* n = aclcheck(aclpbuf, size, &which);
     if (n != 0) {
         length = sizeof(char) * strlen(strerror(errno)) + 13 * sizeof(char) ;
         msg = alloca(length);
@@ -127,11 +127,15 @@ JNIEXPORT jint JNICALL Java_uk_ac_bham_cs_security_acl_UfsAcl_setacl(JNIEnv *env
             (*env)->ThrowNew(env, AclExCls, msg);
         }
         return n;
-    }
+    } */
+	
     n = acl(pathp, SETACL, size, aclpbuf);
+	printf("result %d\n", n);
     (*env)->ReleaseStringUTFChars(env, path, pathp);
+	printf("did releasestring\n");
     if (n == -1) {
-        length = sizeof(char) * strlen(strerror(errno)) + 13 * sizeof(char) ;
+		printf("banana\n");
+        length = sizeof(char) * strlen(strerror(errno)) + 13 * sizeof(char);
         msg = alloca(length);
         if (msg) {
             bzero(msg, length);
@@ -140,5 +144,6 @@ JNIEXPORT jint JNICALL Java_uk_ac_bham_cs_security_acl_UfsAcl_setacl(JNIEnv *env
         }
         return -1;
     }
+	printf("returning\n");
     return n;
 }

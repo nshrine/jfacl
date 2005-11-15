@@ -11,4 +11,4 @@ typedef struct acl {
 	mode_t	a_perm;		/* the permission field */
 } aclent_t;
 
-int _acl(const char*, int op, aclent_t*);
+int _acl(const char*, int, int, aclent_t*);
