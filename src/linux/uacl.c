@@ -45,7 +45,7 @@ static void setmode(acl_permset_t *permset_p, int mode)
 	}
 }
 
-aclent_t getentry(acl_entry_t acl_entry, struct stat st) 
+aclent_t getentry(acl_entry_t acl_entry, struct stat st, int acl_default) 
 {	
 	aclent_t aclent;
 	
@@ -55,7 +55,6 @@ aclent_t getentry(acl_entry_t acl_entry, struct stat st)
 	acl_get_permset(acl_entry, &permset);
 	void *qualifier = acl_get_qualifier(acl_entry);
 	
-	aclent.a_type = e_type;
 	aclent.a_perm = getmode(permset);
 	
 	switch(e_type) {
@@ -83,6 +82,8 @@ aclent_t getentry(acl_entry_t acl_entry, struct stat st)
 			aclent.a_id = -1;
 			break;
 	}
+	
+	aclent.a_type = e_type | acl_default;
 	
 	if(qualifier != NULL) {
 		acl_free(qualifier);
@@ -120,16 +121,16 @@ int getacl(const char *pathp, aclent_t *aclpbuf)
 	int ret = acl_get_entry(acl, ACL_FIRST_ENTRY, &acl_entry);
 	int i = 0;
 	while(ret > 0) {
-		aclpbuf[i++] = getentry(acl_entry, st);
+		aclpbuf[i++] = getentry(acl_entry, st, 0);
 		ret = acl_get_entry(acl, ACL_NEXT_ENTRY, &acl_entry);
 	}
 	acl_free(acl);
 	
-	if(default_acl != NULL) {
+	if((default_acl != NULL) && (ret != -1)) {
 		ret = acl_get_entry(default_acl, ACL_FIRST_ENTRY, &acl_entry);
-		while(ret > 0) {
-			aclpbuf[i++] = getentry(acl_entry, st);
-			ret = acl_get_entry(acl, ACL_NEXT_ENTRY, &acl_entry);
+		while(ret > 0) {			
+			aclpbuf[i++] = getentry(acl_entry, st, ACL_DEFAULT);
+			ret = acl_get_entry(default_acl, ACL_NEXT_ENTRY, &acl_entry);
 		}
 		acl_free(default_acl);
 	}
@@ -141,42 +142,38 @@ int setacl(const char *pathp, int size, aclent_t *aclpbuf)
 {
 	acl_t acl = NULL, default_acl = NULL, *current;
 	acl_entry_t entry;
-	acl_permset_t *permset;
-	int i, result, marker = 0;
-	
-	acl = acl_init(size);	
+	acl_permset_t permset;
+	int i, result, default_count = 0;
 	
 	for (i = 0; i < size; i++) {
-		printf("id %d\n", aclpbuf[i].a_id);
-		if (aclpbuf[i].a_type & 0x1000) {
-			printf("There's a default\n");
-			default_acl = acl_init(size);
+		if (aclpbuf[i].a_type & ACL_DEFAULT) {
+			default_count++;
+		}
+	}	
+	acl = acl_init(size - default_count);
+	default_acl = acl_init(default_count);
+	
+	for (i = 0; i < size; i++) {		
+		if (aclpbuf[i].a_type & ACL_DEFAULT) {						
 			current = &default_acl;			
 		} else {
 			current = &acl;			
-		}
-		acl_create_entry(current, &entry);
-		acl_get_permset(entry, permset);
-		printf("mode %d\n", aclpbuf[i].a_perm);
-		setmode(permset, aclpbuf[i].a_perm);
-		printf("type %d\n", aclpbuf[i].a_type & ~0x1000);
-		acl_set_tag_type(entry, aclpbuf[i].a_type & ~0x1000);
+		}		
+		acl_create_entry(current, &entry);		
+		acl_get_permset(entry, &permset);		
+		setmode(&permset, aclpbuf[i].a_perm);		
+		acl_set_tag_type(entry, aclpbuf[i].a_type & ~ACL_DEFAULT);
 		acl_set_qualifier(entry, &aclpbuf[i].a_id);
-		acl_free(&entry);
+		acl_free(entry);
 	}
 	
-	printf("Setting...");
 	result = acl_set_file(pathp, ACL_TYPE_ACCESS, acl);
-	printf("done\n");
-	printf("Freeing...");
-	acl_free(&acl);
-	printf("done\n");
+	acl_free(acl);
 	if ((default_acl != NULL) && (result == 0)) {
 		result = acl_set_file(pathp, ACL_TYPE_DEFAULT, default_acl);
-		acl_free(&default_acl);
+		acl_free(default_acl);
 	}
 	
-	printf("Returning\n");
 	return result;
 }
 

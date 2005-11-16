@@ -50,10 +50,10 @@ JNIEXPORT jobject JNICALL Java_uk_ac_bham_cs_security_acl_UfsAcl_getacl(
     n = acl(pathp, GETACL, MAX_ACL_ENTRIES, aclpbuf);
     (*env)->ReleaseStringUTFChars(env, path, pathp);
     /* If there was an error throw an exception */
-    if(n == -1) {
+    if (n == -1) {
         length = sizeof(char) * strlen(strerror(errno)) + 13 * sizeof(char) ;
         msg = alloca(length); /* I have no clue what happens at (*env)->ThrowNew(env, AclExCls, msg); */
-        if(msg) {
+        if (msg) {
             bzero(msg, length);
             snprintf(msg, length, "ACL: [%d] %s", errno, strerror(errno));
             (*env)->ThrowNew(env, AclExCls, msg);
@@ -63,20 +63,20 @@ JNIEXPORT jobject JNICALL Java_uk_ac_bham_cs_security_acl_UfsAcl_getacl(
     
     /* Create a new Object array containing n AclEnts */
     aclentries = (*env)->NewObject(env, ArrayListCls, ArrayListCid);
-    for(i=0; i<n; i++) {
+    for (i = 0; i < n; i++) {
         entry_name = NULL;
         /* Time to figure out if aclpbuf[i] is a groups or a user */
-        if(aclpbuf[i].a_type & (USER_OBJ | USER)) {
+        if (aclpbuf[i].a_type & (USER_OBJ | USER)) {
             struct passwd *pwent = getpwuid(aclpbuf[i].a_id);
-            if(pwent != NULL)
+            if (pwent != NULL)
                 entry_name = getNameFromPwent(pwent);
-        } else if(aclpbuf[i].a_type & (GROUP_OBJ | GROUP)) {
+        } else if (aclpbuf[i].a_type & (GROUP_OBJ | GROUP)) {
             struct group *grent = getgrgid(aclpbuf[i].a_id);
-            if(grent != NULL)
+            if (grent != NULL)
                 entry_name = getGroupFromGrent(grent);
         }
 
-        if(entry_name == NULL) {
+        if (entry_name == NULL) {
             entry_name = malloc(256);
             bzero(entry_name, 256);
             snprintf(entry_name, 256, "%d", aclpbuf[i].a_id);
@@ -95,7 +95,7 @@ JNIEXPORT jint JNICALL Java_uk_ac_bham_cs_security_acl_UfsAcl_setacl(JNIEnv *env
     const char *pathp;
     char *msg;
     jobject entry;
-    aclent_t aclpbuf[MAX_ACL_ENTRIES];
+    aclent_t aclpbuf[size];
     jint n;
     jclass ArrayListCls, AclExCls, AclEntCls;
     jmethodID ArrayListGid, AclEntTid, AclEntNid, AclEntPid;
@@ -110,7 +110,7 @@ JNIEXPORT jint JNICALL Java_uk_ac_bham_cs_security_acl_UfsAcl_setacl(JNIEnv *env
     
     pathp = (*env)->GetStringUTFChars(env, path, 0);
     
-    for (i=0; i<size; i++) {
+    for (i = 0; i < size; i++) {
         entry = (*env)->CallObjectMethod(env, aclentries, ArrayListGid, i);
         aclpbuf[i].a_type = (*env)->CallIntMethod(env, entry, AclEntTid);
         aclpbuf[i].a_id = (*env)->CallIntMethod(env, entry, AclEntNid);
@@ -130,12 +130,9 @@ JNIEXPORT jint JNICALL Java_uk_ac_bham_cs_security_acl_UfsAcl_setacl(JNIEnv *env
     } */
 	
     n = acl(pathp, SETACL, size, aclpbuf);
-	printf("result %d\n", n);
-    (*env)->ReleaseStringUTFChars(env, path, pathp);
-	printf("did releasestring\n");
-    if (n == -1) {
-		printf("banana\n");
-        length = sizeof(char) * strlen(strerror(errno)) + 13 * sizeof(char);
+	(*env)->ReleaseStringUTFChars(env, path, pathp);
+	if (n == -1) {
+		length = sizeof(char) * strlen(strerror(errno)) + 13 * sizeof(char);
         msg = alloca(length);
         if (msg) {
             bzero(msg, length);
@@ -144,6 +141,6 @@ JNIEXPORT jint JNICALL Java_uk_ac_bham_cs_security_acl_UfsAcl_setacl(JNIEnv *env
         }
         return -1;
     }
-	printf("returning\n");
+	
     return n;
 }

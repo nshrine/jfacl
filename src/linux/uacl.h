@@ -2,6 +2,7 @@
 #include <sys/stat.h>
 
 #define MAX_ACL_ENTRIES 1024
+#define ACL_DEFAULT 0x1000
 #define GETACL 0
 #define SETACL 1
 
