@@ -16,5 +16,9 @@
 	<target name="clean">
 		<delete dir="build"/>
 	</target>
+        
+        <target name="run" depends="compile">
+            <java classname="uk.ac.bham.cs.security.acl.UfsAclWin" classpath="build"/>
+        </target>
 
 </project>

@@ -160,8 +160,19 @@ public class UfsAclWin extends JFrame {
     public static void main(String args[]) {
         
         if(args.length < 1) {
-            System.err.println("Usage: jfacl <file|dir name> [file|dir name[..]]");
-            System.exit(0);
+//            System.err.println("Usage: jfacl <file|dir name> [file|dir name[..]]");
+//            System.exit(0);
+            JFileChooser chooser = new JFileChooser();
+            chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+            int value = chooser.showDialog(null, "Select");
+            if (value == JFileChooser.APPROVE_OPTION) {
+                try {
+                    new UfsAclWin(chooser.getSelectedFile().getAbsolutePath())
+                            .setVisible(true);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
         } else {
             for(int i=0; i<args.length; i++) {
                 try {

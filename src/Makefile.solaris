@@ -14,8 +14,8 @@ libjacl.so: $(OBJS)
 	$(CC) $(CFLAGS) $(INCLUDE) -c $*.c
 
 install: libjacl.so
-	/usr/sbin/install -d ../lib
-	/usr/sbin/install -f ../lib libjacl.so
+	/usr/sbin/install -d ../lib/SunOS
+	/usr/sbin/install -f ../lib/SunOS libjacl.so
 	ant install
 
 clean::

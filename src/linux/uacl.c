@@ -151,7 +151,9 @@ int setacl(const char *pathp, int size, aclent_t *aclpbuf)
 		}
 	}	
 	acl = acl_init(size - default_count);
-	default_acl = acl_init(default_count);
+	if (default_count > 0) {
+		default_acl = acl_init(default_count);
+	}
 	
 	for (i = 0; i < size; i++) {		
 		if (aclpbuf[i].a_type & ACL_DEFAULT) {						
@@ -168,10 +170,21 @@ int setacl(const char *pathp, int size, aclent_t *aclpbuf)
 	}
 	
 	result = acl_set_file(pathp, ACL_TYPE_ACCESS, acl);
+	if (result != 0 && (errno == ENOSYS || errno == ENOTSUP)) {		
+        mode_t mode;
+                                                                                                                                                             
+        if (acl_equiv_mode(acl, &mode) == 0) {			
+			result = chmod(pathp, mode);			
+		}
+	} 
 	acl_free(acl);
-	if ((default_acl != NULL) && (result == 0)) {
-		result = acl_set_file(pathp, ACL_TYPE_DEFAULT, default_acl);
-		acl_free(default_acl);
+	if (result == 0) {
+		if (default_acl == NULL) {
+			result = acl_delete_def_file(pathp);
+		} else {
+			result = acl_set_file(pathp, ACL_TYPE_DEFAULT, default_acl);
+			acl_free(default_acl);
+		}
 	}
 	
 	return result;

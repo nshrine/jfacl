@@ -81,7 +81,10 @@ public class UfsAcl extends ArrayList {
         if (!hasDefaults()) {
             addEntry(getUniqueEntry(UfsAclEntry.USER_OBJ).getDefault());
             addEntry(getUniqueEntry(UfsAclEntry.GROUP_OBJ).getDefault());
-            addEntry(getUniqueEntry(UfsAclEntry.CLASS_OBJ).getDefault());
+            UfsAclEntry mask = getUniqueEntry(UfsAclEntry.CLASS_OBJ);
+            if (mask != null) {
+                addEntry(mask.getDefault());
+            }
             addEntry(getUniqueEntry(UfsAclEntry.OTHER_OBJ).getDefault());
         }
     }

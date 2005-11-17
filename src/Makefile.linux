@@ -14,8 +14,8 @@ libjacl.so: $(OBJS)
 	$(CC) $(CFLAGS) $(INCLUDE) -c $*.c -o $*.o
 
 install: libjacl.so
-	install -d ../lib
-	install libjacl.so ../lib
+	install -d ../lib/Linux
+	install libjacl.so ../lib/Linux
 	ant install
 
 clean::

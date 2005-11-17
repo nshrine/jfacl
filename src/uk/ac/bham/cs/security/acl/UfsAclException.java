@@ -27,6 +27,10 @@ public class UfsAclException extends IOException {
         errmsg.put("CHK8", "The entry type is invalid.");
         errmsg.put("ACL2", "No such file or directory.");
         errmsg.put("ACL13", "Permission denied.");
+        errmsg.put("ACL95", "Operation not supported\n\n"
+                + "Either your kernel does not support acls\n"
+                + "or the filesystem is not mounted with\n"
+                + "the \"acl\" option.\n");               
     }
     
     /**
@@ -39,17 +43,17 @@ public class UfsAclException extends IOException {
      * Constructs an instance of <code>UfsAclException</code> with the specified detail message.
      * @param msg the detail message.
      */
-    public UfsAclException(String msg) {
-        
+    public UfsAclException(String msg) {        
         super(msg);
     }
     
-    public String getMessage() {
+    public String getMessage() {        
+        String message = (String) errmsg.get(super.getMessage());
         
-        String message = (String)errmsg.get(super.getMessage());
-        if(message != null) {
+        if (message != null) {
             return message;
         }
+        
         return super.getMessage();
     }
 }

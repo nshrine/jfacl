@@ -117,7 +117,8 @@ JNIEXPORT jint JNICALL Java_uk_ac_bham_cs_security_acl_UfsAcl_setacl(JNIEnv *env
         aclpbuf[i].a_perm = (*env)->CallIntMethod(env, entry, AclEntPid);
     }
     
-    /* n = aclcheck(aclpbuf, size, &which);
+#ifndef LINUX
+    n = aclcheck(aclpbuf, size, &which);
     if (n != 0) {
         length = sizeof(char) * strlen(strerror(errno)) + 13 * sizeof(char) ;
         msg = alloca(length);
@@ -127,11 +128,18 @@ JNIEXPORT jint JNICALL Java_uk_ac_bham_cs_security_acl_UfsAcl_setacl(JNIEnv *env
             (*env)->ThrowNew(env, AclExCls, msg);
         }
         return n;
-    } */
+    }
+#endif
 	
     n = acl(pathp, SETACL, size, aclpbuf);
 	(*env)->ReleaseStringUTFChars(env, path, pathp);
 	if (n == -1) {
+#ifdef LINUX
+		if (errno == 95) {
+			(*env)->ThrowNew(env, AclExCls, "ACL95");
+			return -1;
+		}
+#endif
 		length = sizeof(char) * strlen(strerror(errno)) + 13 * sizeof(char);
         msg = alloca(length);
         if (msg) {
