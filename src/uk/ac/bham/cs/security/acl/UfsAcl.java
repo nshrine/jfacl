@@ -37,6 +37,7 @@ public class UfsAcl extends ArrayList {
         this.path = path;
         ISDIR = (new File(path)).isDirectory();
         addAll(getacl(path));
+        checkMask();
         owner = System.getProperty("user.name").
             equals(getUniqueEntry(UfsAclEntry.USER_OBJ).getUserName()) 
             || System.getProperty("user.name").equals("root");
@@ -56,7 +57,57 @@ public class UfsAcl extends ArrayList {
             throw new UfsAclException("CHK5");
         }
         
+        UfsAclEntry mask = getUniqueEntry(UfsAclEntry.CLASS_OBJ);
+        int type = entry.getType();
+        
+        if (((type == UfsAclEntry.USER) || (type == UfsAclEntry.GROUP))
+                && (getUniqueEntry(UfsAclEntry.CLASS_OBJ) == null)) {
+            add(getMask(entry));
+        } else if (((type == UfsAclEntry.DEF_USER) || (type == UfsAclEntry.DEF_GROUP))
+                && (getUniqueEntry(UfsAclEntry.DEF_CLASS_OBJ) == null)) {
+            add(getMask(entry));
+        }
+            
         add(entry);
+    }
+    
+    public UfsAclEntry getMask(UfsAclEntry entry) {
+        UfsAclEntry group = getUniqueEntry(UfsAclEntry.GROUP_OBJ);
+        
+        int type = UfsAclEntry.CLASS_OBJ;
+        if (entry.getType() > UfsAclEntry.ACL_DEFAULT) {
+            type = UfsAclEntry.DEF_CLASS_OBJ;
+        }
+        
+        int mode = entry.getMode() | group.getMode();
+        
+        return new UfsAclEntry(type, mode);
+    }
+    
+    private void checkMask() {
+        int def = 0;
+        while (def <= UfsAclEntry.ACL_DEFAULT) {    
+            if (getUniqueEntry(UfsAclEntry.CLASS_OBJ | def) == null) {                    
+                UfsAclEntry group = getUniqueEntry(UfsAclEntry.GROUP_OBJ | def);
+                if (group == null) {
+                    return;
+                }
+                int mode = group.getMode();
+                boolean needsMask = false;
+                for (int i = 0; i < size(); i++) {
+                    UfsAclEntry entry = getEntry(i);
+                    if ((entry.getType() == (UfsAclEntry.USER | def))
+                            || (entry.getType() == (UfsAclEntry.GROUP | def))) {
+                        mode |= entry.getMode();
+                        needsMask = true;
+                    }
+                }
+                if (needsMask) {
+                    add(new UfsAclEntry((UfsAclEntry.CLASS_OBJ | def), mode));
+                }
+            }
+            def += UfsAclEntry.ACL_DEFAULT;
+        }
     }
     
     public boolean isOwner() {        

@@ -9,4 +9,4 @@ BASE=/home/staff/nrs/java/jfacl
 LD_LIBRARY_PATH=${BASE}/lib/`/bin/uname`:$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH
 
-exec ${JAVA_HOME}/bin/java -classpath ${BASE}/jfacl.jar -Dbase=${BASE} uk.ac.bham.cs.security.acl.UfsAclWin $* 
+exec ${JAVA_HOME}/bin/java -classpath ${BASE}/jfacl.jar -Dbase=${BASE} uk.ac.bham.cs.security.acl.UfsAclWin "$*"

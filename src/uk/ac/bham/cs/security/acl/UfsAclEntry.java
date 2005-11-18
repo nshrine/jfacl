@@ -56,12 +56,12 @@ public class UfsAclEntry implements Comparable {
         this.name = name;
     }
     
-    public UfsAclEntry(int type, int id, String name, int mode) throws Exception {
+    public UfsAclEntry(int type, int id, String name, int mode) {
             
         this(type, id, name, new UnixPerm(mode));
     }
     
-    public UfsAclEntry(int type, int mode) throws Exception {
+    public UfsAclEntry(int type, int mode) {
         
         this(type, 0, "root", mode);
     }
