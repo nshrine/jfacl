@@ -1,6 +1,7 @@
 CC=gcc
-CFLAGS=-I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/solaris -Wall -ansi -pedantic
+CFLAGS=-I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/solaris -Wall
 LDFLAGS=-G -lsec
+ARCH=`/bin/uname -s`/`/bin/uname -p`
 
 OBJS=jacl.o getname.o getall.o
 
@@ -14,8 +15,8 @@ libjacl.so: $(OBJS)
 	$(CC) $(CFLAGS) $(INCLUDE) -c $*.c
 
 install: libjacl.so
-	/usr/sbin/install -d ../lib/SunOS
-	/usr/sbin/install -f ../lib/SunOS libjacl.so
+	/usr/sbin/install -d ../lib/$(ARCH)
+	/usr/sbin/install -f ../lib/$(ARCH) libjacl.so
 	ant install
 
 clean::

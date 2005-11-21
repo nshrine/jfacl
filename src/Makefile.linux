@@ -1,6 +1,7 @@
 CC=gcc
 CFLAGS=-I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/linux -fPIC -DLINUX
 LDFLAGS=-shared -lacl
+ARCH=`/bin/uname -s`/`/bin/uname -p`
 
 OBJS=jacl.o getname.o getall.o linux/uacl.o
 
@@ -11,13 +12,13 @@ libjacl.so: $(OBJS)
 	$(CC) -o $@ $(OBJS) $(LDFLAGS)
 
 .c.o :
-	$(CC) $(CFLAGS) $(INCLUDE) -c $*.c -o $*.o
+	$(CC) $(CFLAGS) $(INCLUDE) -c -g $*.c -o $*.o
 
 install: libjacl.so
-	install -d ../lib/Linux
-	install libjacl.so ../lib/Linux
+	install -d ../lib/$(ARCH)
+	install libjacl.so ../lib/$(ARCH)
 	ant install
 
 clean::
-	$(RM) libjacl.so *.o
+	$(RM) libjacl.so *.o linux/*.o
 	ant clean

@@ -10,7 +10,7 @@
 	</target>
 
 	<target name="install" depends="compile">
-		<jar jarfile="jfacl.jar" basedir="build"/>
+		<jar jarfile="lib/jfacl.jar" basedir="build"/>
 	</target>
 
 	<target name="clean">

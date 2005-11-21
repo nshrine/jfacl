@@ -145,6 +145,12 @@ int setacl(const char *pathp, int size, aclent_t *aclpbuf)
 	acl_permset_t permset;
 	int i, result, default_count = 0;
 	
+	struct stat st;
+	
+	if (stat(pathp, &st) != 0) {
+		return -1;
+	}
+	
 	for (i = 0; i < size; i++) {
 		if (aclpbuf[i].a_type & ACL_DEFAULT) {
 			default_count++;
@@ -176,9 +182,7 @@ int setacl(const char *pathp, int size, aclent_t *aclpbuf)
         if (acl_equiv_mode(acl, &mode) == 0) {			
 			result = chmod(pathp, mode);			
 		}
-	} 
-	acl_free(acl);
-	if (result == 0) {
+	} else if ((result == 0) && S_ISDIR(st.st_mode)) {
 		if (default_acl == NULL) {
 			result = acl_delete_def_file(pathp);
 		} else {
@@ -186,6 +190,7 @@ int setacl(const char *pathp, int size, aclent_t *aclpbuf)
 			acl_free(default_acl);
 		}
 	}
+	acl_free(acl);
 	
 	return result;
 }
