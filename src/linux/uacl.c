@@ -176,9 +176,12 @@ int setacl(const char *pathp, int size, aclent_t *aclpbuf)
 	}
 	
 	result = acl_set_file(pathp, ACL_TYPE_ACCESS, acl);
-	if (result != 0 && (errno == ENOSYS || errno == ENOTSUP)) {		
-        mode_t mode;
-                                                                                                                                                             
+	if (result != 0 && (errno == ENOSYS || errno == ENOTSUP)) {
+		if (default_acl != NULL) {
+			return result;
+		}
+		
+        mode_t mode;                                                                                                                                                             
         if (acl_equiv_mode(acl, &mode) == 0) {			
 			result = chmod(pathp, mode);			
 		}

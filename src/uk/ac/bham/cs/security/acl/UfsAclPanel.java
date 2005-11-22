@@ -16,13 +16,18 @@ import uk.ac.bham.cs.util.SwingWorker;
  *
  * @author  nrs
  */
-public class UfsAclPanel extends JPanel implements ListSelectionListener, ListCellRenderer, TableModelListener, ActionListener {        
+public class UfsAclPanel extends JPanel implements ListSelectionListener,
+        ListCellRenderer, TableModelListener, ActionListener {        
     
     public static final String BASE = System.getProperty("base");
-    public static final ImageIcon USER_ICON = new ImageIcon(BASE + "/user.png");
-    public static final ImageIcon GROUP_ICON = new ImageIcon(BASE + "/group.png");
-    public static final ImageIcon OTHER_ICON = new ImageIcon(BASE + "/other.png");
-    public static final ImageIcon MASK_ICON = new ImageIcon(BASE + "/mask.png");
+    public static final ImageIcon USER_ICON =
+            new ImageIcon(BASE + "/icons/user.png");
+    public static final ImageIcon GROUP_ICON =
+            new ImageIcon(BASE + "/icons/group.png");
+    public static final ImageIcon OTHER_ICON =
+            new ImageIcon(BASE + "/icons/other.png");
+    public static final ImageIcon MASK_ICON =
+            new ImageIcon(BASE + "/icons/mask.png");
     
     public final boolean EDITABLE;
     private boolean changed = false;

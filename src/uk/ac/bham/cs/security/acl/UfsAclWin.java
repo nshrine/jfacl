@@ -164,6 +164,7 @@ public class UfsAclWin extends JFrame {
 //            System.exit(0);
             JFileChooser chooser = new JFileChooser();
             chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+            chooser.setDialogTitle("Set Permissions on File or Directory");
             int value = chooser.showDialog(null, "Select");
             if (value == JFileChooser.APPROVE_OPTION) {
                 try {
