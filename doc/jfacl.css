@@ -1,0 +1,38 @@
+.title {
+	color: #000000;
+	font-size: 20px;
+	font-weight: bold;
+	font-family: verdana, sans-serif;
+	border: 1px solid #5a4abd;
+	margin:0px 50px 20px 50px;
+	padding:10px;
+}
+
+.body {
+        background: #ccccff;
+        color: #000000;
+        font-size: 16px;
+        font-family: verdana, sans-serif;
+        border: 1px solid #5a4abd;
+        margin:0px 50px 20px 50px;
+        padding:10px;
+}
+
+h1 {
+	color: #000000;
+	font-weight: bold;
+	font-size: 24px;
+	font-family: verdana, sans-serif;
+}
+
+h2 {
+	color: #000000;
+	font-weight: bold;
+	font-size: 20px;
+	font-family: verdana, sans-serif;
+	text-indent: 12px;
+}
+
+a:link { color:#0000ff }
+a:visited { color:#660066 }
+a:active { color:#000000 }

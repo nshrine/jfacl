@@ -11,7 +11,7 @@ import java.awt.Component;
 import javax.swing.event.*;
 import java.awt.event.*;
 import java.util.*;
-import uk.ac.bham.cs.util.SwingWorker;
+//import uk.ac.bham.cs.util.SwingWorker;
 /**
  *
  * @author  nrs
@@ -230,24 +230,20 @@ public class UfsAclPanel extends JPanel implements ListSelectionListener,
             });
             timer.start(); 
 
-            SwingWorker worker = new SwingWorker() {
-                public Object construct() {                                
+            Runnable worker = new Runnable() {
+                public void run() {                                
                     Collection set = UfsAcl.getall();                
                     timer.stop();                
                     dialog.setVisible(false);
                     adialog = new AddDialog(parent, set, acl.hasDefaults(), true);
-                    adialog.setVisible(true);
-                    //adialog.repaint();                                
-                    return set;
+                    adialog.setVisible(true);                    
                 }
             };
-            worker.start();               
+            new Thread(worker).start();
         } else {
             adialog.enableDefaultsButton(acl.hasDefaults());
             adialog.setVisible(true);
-        }
-        
-        //jList1.setSelectedIndex(acl.size() - 1);
+        }                
     }//GEN-LAST:event_addButtonActionPerformed
 
     public void valueChanged(ListSelectionEvent e) {        

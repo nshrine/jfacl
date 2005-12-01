@@ -1,0 +1,50 @@
+<html>
+<head><title>Jfacl - a GUI for Solaris ACLs</title>
+<link rel="stylesheet" href="jfacl.css">
+</head>
+
+<body>
+<div class="title">
+<h1><img src="group.gif" align="middle"><font size="+4">  Jfacl</font>
+ - a GUI for Solaris Access Control Lists</h1>
+</div>
+
+<div class="body">
+<h2>About</h2>
+<p>
+Jfacl is a GUI for editing file access control lists on <a href="http://www.sun.com/software/solaris">Solaris</a> and is an alternative to the somewhat complicated <code>getfacl</code> and <code>setfacl</code> commands. It is written in Java and uses <a href="http://java.sun.com/j2se/1.4.1/docs/guide/jni/">JNI</a> to make native Solaris system calls to modify the ACLs.
+</p>
+
+<h2>Screenshots</h2>
+<p>As you can see from the screenshots below, it is meant to look something like the file security dialog in Windows (click thumbs for full size screenshot).
+</p>
+<table align="center">
+<tr valign="bottom">
+<td width="275" align="center"><a href="main.jpg"><img src="mainthumb.jpg"></a><br>
+The Main Window</td>
+<td width="275" align="center"><a href="add.jpg"><img src="addthumb.jpg"></a><br>
+The Add Users Window</td>
+</tr>
+</table> 
+
+<h2>Download</h2>
+<p>Jfacl requires Solaris 7 or higher (untested on earlier versions) and Java 2 Runtime 1.4.0 or higher. If you want to modify and rebuild jfacl you need <a href="http://java.sun.com/j2se/downloads/">Java 2 SDK</a> 1.4.0 or higher, <a href="http://ant.apache.org/">Apache Ant</a> 1.4.1 or higher and <a href="http://gcc.gnu.org">GCC</a> for the native code - I used gcc 2.95.3 (untested with other versions).
+</p>
+<p>Jfacl is free to download, use, modify and redistribute under these <a href="COPYING">licence terms</a>.<br>
+Release <a href="HISTORY">history</a>.</p>
+<p>Click <a href="download.php">here</a> to download (.tar.gz binary and sources).
+</p>
+</div>
+
+<div class="body">
+<h2>Contributors</h2>
+<ul>
+<li><a href="http://www.cs.umu.se/~fahlgren">Daniel Fahlgren</a>.
+</ul>
+
+<h2>Bugs/Suggestions</h2>
+<p>Please mail any bugs or suggestions to Nick Shrine at:<br><a href="mailto:N.R.Shrine@cs.bham.ac.uk">N.R.Shrine@cs.bham.ac.uk</a>.
+<p align="right"><a href="http://www.java.com"><img src="/~nrs/img/Get_Java_buttons/get_java_blue-button.gif"></a>
+</div>
+</body>
+</html>
