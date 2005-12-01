@@ -1,0 +1,6 @@
+Edit the jfacl script and set JAVA_HOME to point to your
+java installation and BASE to the directory in which you unpacked jfacl.
+Add BASE to your path then run jfacl as:
+ 
+        jfacl <file or dir> [[<file or dir>]...]
+
