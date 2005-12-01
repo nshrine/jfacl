@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# Set JAVA_HOME to the location of your JDK
+#JAVA_HOME=/usr/java/jdk1.5.0
+
+# Set BASE to where you have installed jfacl
+BASE=/home/staff/nrs/java/jfacl
+
+LIBRARY_PATH=${BASE}/lib/`/bin/uname -s`/`/bin/uname -p`
+
+exec ${JAVA_HOME}/bin/java -classpath ${BASE}/lib/jfacl.jar -Djava.library.path=${LIBRARY_PATH} -Dbase=${BASE} uk.ac.bham.cs.security.acl.UfsAclWin "$*" 
