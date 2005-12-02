@@ -1,3 +1,6 @@
+(rel. 0.4b) xx/12/2005 - First Linux version. Licence is now GPL. Removed
+	SwingWorker class.
+	
 (rel. 0.3.1) 16/2/2004 - Speed-up patch from Daniel Fahlgren. Removed
 	unecessary getname native function as real names are loaded into
 	UfsAclEntry class as the user list is constructed thus cutting out

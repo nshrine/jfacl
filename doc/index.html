@@ -6,13 +6,20 @@
 <body>
 <div class="title">
 <h1><img src="group.gif" align="middle"><font size="+4">  Jfacl</font>
- - a GUI for Solaris Access Control Lists</h1>
+ - a GUI for Linux and Solaris File Access Control Lists</h1>
 </div>
 
 <div class="body">
 <h2>About</h2>
 <p>
-Jfacl is a GUI for editing file access control lists on <a href="http://www.sun.com/software/solaris">Solaris</a> and is an alternative to the somewhat complicated <code>getfacl</code> and <code>setfacl</code> commands. It is written in Java and uses <a href="http://java.sun.com/j2se/1.4.1/docs/guide/jni/">JNI</a> to make native Solaris system calls to modify the ACLs.
+Jfacl is a GUI for editing file access control lists on
+<a href="http://www.linux.org/" target="_blank">Linux</a> and
+<a href="http://www.sun.com/software/solaris" target="_blank">Solaris</a> and
+is an alternative to the somewhat complicated <code>getfacl</code> and
+<code>setfacl</code> Unix commands.
+It is written in Java and uses
+<a href="http://java.sun.com/j2se/1.5.0/docs/guide/jni/" target="_blank">JNI</a>
+to make native Unix system calls to modify the ACLs.
 </p>
 
 <h2>Screenshots</h2>
@@ -28,11 +35,18 @@ The Add Users Window</td>
 </table> 
 
 <h2>Download</h2>
-<p>Jfacl requires Solaris 7 or higher (untested on earlier versions) and Java 2 Runtime 1.4.0 or higher. If you want to modify and rebuild jfacl you need <a href="http://java.sun.com/j2se/downloads/">Java 2 SDK</a> 1.4.0 or higher, <a href="http://ant.apache.org/">Apache Ant</a> 1.4.1 or higher and <a href="http://gcc.gnu.org">GCC</a> for the native code - I used gcc 2.95.3 (untested with other versions).
+<p>Jfacl requires Linux 2.4 or higher (with <a href="http://acl.bestbits.at/" target="_blank">
+Linux ACLs</a> enabled in the kernel) or Solaris 7 or higher.<br>
+<a href="http://www.java.com" target="_blank">Java JRE 5.0</a> is also required.<br>
+If you want to modify and rebuild jfacl you need
+<a href="http://java.sun.com/j2se/downloads/" target="_blank">Java SDK 5.0</a>,
+<a href="http://ant.apache.org/" target="_blank">Apache Ant</a> 1.4.1 or higher and
+<a href="http://gcc.gnu.org" target="_blank">GCC</a> for the native code.
 </p>
 <p>Jfacl is free to download, use, modify and redistribute under these <a href="COPYING">licence terms</a>.<br>
 Release <a href="HISTORY">history</a>.</p>
-<p>Click <a href="download.php">here</a> to download (.tar.gz binary and sources).
+<p>Click <a href="download.php">here</a> to download .tar.gz binaries
+(Linux i386/amd64 and Solaris sparc/x86) and sources.
 </p>
 </div>
 
