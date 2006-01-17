@@ -30,6 +30,7 @@ import javax.swing.event.*;
 import java.awt.event.*;
 import java.util.*;
 //import uk.ac.bham.cs.util.SwingWorker;
+
 /**
  *
  * @author  nrs
@@ -57,8 +58,7 @@ public class UfsAclPanel extends JPanel implements ListSelectionListener,
     private int lastSelectedIndex;
     
     /** Creates new form UfsAclPanel */
-    public UfsAclPanel(UfsAclWin parent) {
-        
+    public UfsAclPanel(UfsAclWin parent) {        
         this.parent = parent;
         this.acl = parent.getAcl();
         EDITABLE = acl.isOwner();
@@ -80,118 +80,96 @@ public class UfsAclPanel extends JPanel implements ListSelectionListener,
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        addButton = new javax.swing.JButton();
-        removeButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
+        jPanel1 = new javax.swing.JPanel();
+        addButton = new javax.swing.JButton();
+        removeButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jPanel2 = new javax.swing.JPanel();
         jCheckBox1 = new javax.swing.JCheckBox();
 
-        setLayout(new java.awt.GridBagLayout());
+        setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.Y_AXIS));
 
+        jScrollPane1.setBorder(new javax.swing.border.TitledBorder(new javax.swing.border.BevelBorder(javax.swing.border.BevelBorder.LOWERED), "Group or user names:", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP));
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(500, 300));
+        jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(jList1);
+
+        add(jScrollPane1);
+
+        jPanel1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
+
+        jPanel1.setBorder(new javax.swing.border.EmptyBorder(new java.awt.Insets(5, 1, 5, 1)));
+        addButton.setMnemonic('d');
         addButton.setText("Add...");
         addButton.setBorder(new javax.swing.border.BevelBorder(javax.swing.border.BevelBorder.RAISED));
+        addButton.setEnabled(EDITABLE);
         addButton.setMinimumSize(new java.awt.Dimension(70, 25));
         addButton.setPreferredSize(new java.awt.Dimension(70, 25));
-        addButton.setEnabled(EDITABLE);
         addButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addButtonActionPerformed(evt);
             }
         });
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.weightx = 0.2;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        add(addButton, gridBagConstraints);
+        jPanel1.add(addButton);
 
+        removeButton.setMnemonic('r');
         removeButton.setText("Remove");
         removeButton.setBorder(new javax.swing.border.BevelBorder(javax.swing.border.BevelBorder.RAISED));
+        removeButton.setEnabled(false);
         removeButton.setMinimumSize(new java.awt.Dimension(70, 25));
         removeButton.setPreferredSize(new java.awt.Dimension(70, 25));
-        removeButton.setEnabled(false);
         removeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 removeButtonActionPerformed(evt);
             }
         });
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        add(removeButton, gridBagConstraints);
+        jPanel1.add(removeButton);
 
-        jScrollPane1.setBorder(new javax.swing.border.BevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jScrollPane1.setViewportView(jList1);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridheight = 4;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.weightx = 0.5;
-        gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        add(jScrollPane1, gridBagConstraints);
+        add(jPanel1);
 
         jScrollPane2.setBackground(new java.awt.Color(255, 255, 255));
         jScrollPane2.setBorder(new javax.swing.border.BevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-        jScrollPane2.setPreferredSize(new java.awt.Dimension(300, 400));
         jScrollPane2.setOpaque(false);
+        jScrollPane2.setPreferredSize(new java.awt.Dimension(260, 200));
         jTable1.setModel(tablemodel);
-        jTable1.setPreferredSize(new java.awt.Dimension(300, 400));
+        jTable1.setPreferredSize(new java.awt.Dimension(100, 400));
         jTable1.setRowSelectionAllowed(false);
         jTable1.setSelectionBackground(new java.awt.Color(255, 255, 255));
         jTable1.setShowHorizontalLines(false);
         jTable1.setShowVerticalLines(false);
         jScrollPane2.setViewportView(jTable1);
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.gridheight = java.awt.GridBagConstraints.RELATIVE;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTH;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        add(jScrollPane2, gridBagConstraints);
+        add(jScrollPane2);
 
+        jPanel2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+
+        jCheckBox1.setMnemonic('f');
         jCheckBox1.setSelected(acl.hasDefaults());
         jCheckBox1.setText("Defaults for new files in this directory");
         jCheckBox1.setBorder(null);
-        jCheckBox1.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
         jCheckBox1.setEnabled(acl.ISDIR && EDITABLE);
+        jCheckBox1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jCheckBox1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         jCheckBox1.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jCheckBox1ItemStateChanged(evt);
             }
         });
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        add(jCheckBox1, gridBagConstraints);
+        jPanel2.add(jCheckBox1);
+
+        add(jPanel2);
 
     }
     // </editor-fold>//GEN-END:initComponents
 
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
-        
         //int index = jList1.getSelectedIndex();
         int statechange = evt.getStateChange();
         if((statechange == ItemEvent.SELECTED) && !acl.hasDefaults()) {
@@ -199,12 +177,13 @@ public class UfsAclPanel extends JPanel implements ListSelectionListener,
                 acl.addDefaults();
                 changed = true;
             } catch (UfsAclException ex) {
-                JOptionPane.showMessageDialog(this, "Unable to add defaults: " + 
-                        ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Unable to add defaults: "
+                        + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         } else if ((statechange == ItemEvent.DESELECTED) && acl.hasDefaults()) {
-            if(JOptionPane.showConfirmDialog(this, "Deselecting this option will delete all default ACL entries.\nOK to proceed?",
-                                                "Warning", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
+            if(JOptionPane.showConfirmDialog(this,
+                    "Deselecting this option will delete all default ACL entries.\nOK to proceed?",
+                    "Warning", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
                 acl.removeDefaults();
                 changed = true;
             } else {
@@ -220,7 +199,6 @@ public class UfsAclPanel extends JPanel implements ListSelectionListener,
     }//GEN-LAST:event_jCheckBox1ItemStateChanged
 
     private void removeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeButtonActionPerformed
-        
         //int index = jList1.getSelectedIndex();
         acl.remove(jList1.getSelectedValue());
         changed = true;
@@ -229,8 +207,7 @@ public class UfsAclPanel extends JPanel implements ListSelectionListener,
     }//GEN-LAST:event_removeButtonActionPerformed
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        
-        if(adialog == null) {
+        if (adialog == null) {
             final JLabel label = new JLabel();
             final JPanel panel = new JPanel();
             panel.setBorder(new javax.swing.border.TitledBorder("Loading Names"));               
@@ -242,7 +219,8 @@ public class UfsAclPanel extends JPanel implements ListSelectionListener,
             dialog.setSize(150,50);
             dialog.setVisible(true);
 
-            final javax.swing.Timer timer = new javax.swing.Timer(50, new ActionListener() {
+            final javax.swing.Timer timer = new javax.swing.Timer(50,
+                    new ActionListener() {
                 public void actionPerformed(ActionEvent evt) {
                     label.setText("Found " + UfsAcl.getNameCount() + " names");                               
                 }
@@ -251,7 +229,7 @@ public class UfsAclPanel extends JPanel implements ListSelectionListener,
 
             Runnable worker = new Runnable() {
                 public void run() {                                
-                    Collection set = UfsAcl.getall();                
+                    Collection<UfsAclEntry> set = UfsAcl.getall();                
                     timer.stop();                
                     dialog.setVisible(false);
                     adialog = new AddDialog(parent, set, acl.hasDefaults(), true);
@@ -267,7 +245,7 @@ public class UfsAclPanel extends JPanel implements ListSelectionListener,
 
     public void valueChanged(ListSelectionEvent e) {        
         if (jList1.isSelectionEmpty()) {
-            if( lastSelectedIndex >= acl.size()) {
+            if (lastSelectedIndex >= acl.size()) {
                 jList1.setSelectedIndex(acl.size() - 1);
             }  else {
                 jList1.setSelectedIndex(lastSelectedIndex);
@@ -275,7 +253,7 @@ public class UfsAclPanel extends JPanel implements ListSelectionListener,
             return;
         }
         
-        UfsAclEntry entry = (UfsAclEntry)jList1.getSelectedValue();
+        UfsAclEntry entry = (UfsAclEntry) jList1.getSelectedValue();
         
         if ((entry.getType() & UfsAclEntry.PRIMARY_MASK) > 0) {
             removeButton.setEnabled(false);
@@ -307,14 +285,14 @@ public class UfsAclPanel extends JPanel implements ListSelectionListener,
      * @see ListModel
      *
      */
-    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-        
-        UfsAclEntry entry = (UfsAclEntry)value;
+    public Component getListCellRendererComponent(JList list, Object value,
+            int index, boolean isSelected, boolean cellHasFocus) {        
+        UfsAclEntry entry = (UfsAclEntry) value;
         ImageIcon icon = null;
         StringBuffer text = new StringBuffer();
         String name = entry.getName();
         
-        switch(entry.getType()) {
+        switch (entry.getType()) {
             case UfsAclEntry.USER_OBJ: icon = USER_ICON;
                 text.append(name + " (Owner)");
                 break;
@@ -355,7 +333,7 @@ public class UfsAclPanel extends JPanel implements ListSelectionListener,
         
         JLabel label = new JLabel(text.toString(), icon, JLabel.LEFT);
         label.setOpaque(true);
-        if(isSelected) {
+        if (isSelected) {
             label.setBackground(list.getSelectionBackground());
             label.setForeground(list.getSelectionForeground());
         } else {
@@ -369,50 +347,48 @@ public class UfsAclPanel extends JPanel implements ListSelectionListener,
      * of cells, rows, or columns that changed.
      *
      */
-    public void tableChanged(TableModelEvent e) {
-        
-        if(e.getColumn() == 1) {
+    public void tableChanged(TableModelEvent e) {        
+        if (e.getColumn() == 1) {
             UfsAclEntry entry = (UfsAclEntry)jList1.getSelectedValue();
             boolean read = ((Boolean)jTable1.getValueAt(0,1)).booleanValue();
             boolean write = ((Boolean)jTable1.getValueAt(1,1)).booleanValue();
             boolean execute = ((Boolean)jTable1.getValueAt(2,1)).booleanValue();
             entry.setPerm(new UnixPerm(read, write, execute));
-            tablemodel.setPerms(entry.getType(), entry.getPerm(), acl.getEffective(entry));
+            tablemodel.setPerms(entry.getType(), entry.getPerm(),
+                    acl.getEffective(entry));
             changed = true;
         }
     }
     
-    public boolean dataChanged() {
-        
+    public boolean dataChanged() {        
         return changed;
     }
     
-    public void dataSaved() {
-        
+    public void dataSaved() {        
         changed = false;
     }
     
     /** Invoked when an action occurs.
      *
      */
-    public void actionPerformed(ActionEvent e) {
-        
-        if(e.getActionCommand().equals("OK")) {
+    public void actionPerformed(ActionEvent e) {        
+        if (e.getActionCommand().equals("OK")) {
             int prevSize = acl.size() - 1;
             int added = 0;
             Enumeration entries = adialog.getSelected();
             while(entries.hasMoreElements()) {                
-                UfsAclEntry entry = (UfsAclEntry)entries.nextElement();
+                UfsAclEntry entry = (UfsAclEntry) entries.nextElement();
                 try {                    
                     acl.addEntry(entry);
                     added = 1;
                     changed = true;                    
                 } catch (UfsAclException ex) {
-                    JOptionPane.showMessageDialog(this, "Unable to add " + entry.getName() + ": " + 
-                        ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Unable to add "
+                            + entry.getName() + ": " + ex.getMessage(),
+                            "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }            
-            if(added > 0) {
+            if (added > 0) {
                 jList1.setListData(acl.toArray());
                 jList1.setSelectedIndex(prevSize + added);
             }
@@ -426,6 +402,8 @@ public class UfsAclPanel extends JPanel implements ListSelectionListener,
     private javax.swing.JButton addButton;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JList jList1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;

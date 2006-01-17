@@ -33,12 +33,13 @@ import java.io.File;
  *
  * @author  nrs
  */
-public class UfsAcl extends ArrayList {
+public class UfsAcl extends ArrayList<UfsAclEntry> {
     
-    public native static ArrayList getacl(String path) throws UfsAclException;
-    public native static int setacl(String path, ArrayList aclentries, int size)
-        throws UfsAclException;
-    public native static TreeSet getall();
+    public native static ArrayList<UfsAclEntry> getacl(String path)
+            throws UfsAclException;
+    public native static int setacl(String path,
+            ArrayList<UfsAclEntry> aclentries, int size) throws UfsAclException;
+    public native static TreeSet<UfsAclEntry> getall();
     
     static {
         System.loadLibrary("jacl");
@@ -184,16 +185,16 @@ public class UfsAcl extends ArrayList {
     }
     
     public UfsAclEntry[] getEntries(int type) {        
-        ArrayList entries = new ArrayList();
+        ArrayList<UfsAclEntry> entries = new ArrayList<UfsAclEntry>();
         
-        for (int i=0; i<size(); i++) {
+        for (int i = 0; i < size(); i++) {
             UfsAclEntry entry = getEntry(i);
             if (entry.getType() == type) {
                 entries.add(entry);
             }
         }
         
-        UfsAclEntry[] result = (UfsAclEntry[])entries.toArray();
+        UfsAclEntry[] result = (UfsAclEntry[]) entries.toArray();
         return result;
     }
     

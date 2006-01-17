@@ -38,23 +38,25 @@ public class UfsAclWin extends JFrame {
     private static Point lastopen = null;
     
     /** Creates new form UfsAclWin */
-    public UfsAclWin() {
-        
-        initComponents();
+    public UfsAclWin() {        
+        initComponents();        
     }
     
-    public UfsAclWin(String path) throws Exception {
-        
+    public UfsAclWin(String path) throws Exception {        
         super(path);
         acl = new UfsAcl(path);
         aclpanel = new UfsAclPanel(this);
         initComponents();
         jTabbedPane1.add("Security", aclpanel);
-        if(!acl.isOwner()) {
-            JOptionPane.showMessageDialog(this, "You are only allowed to view the permissions on " + path, "Security", JOptionPane.INFORMATION_MESSAGE);
+        
+        if (!acl.isOwner()) {
+            JOptionPane.showMessageDialog(this,
+                    "You are only allowed to view the permissions on " + path,
+                    "Security", JOptionPane.INFORMATION_MESSAGE);
         }
-        setSize(350, 380);
-        if(lastopen == null) {
+        
+        setSize(350, 380);        
+        if (lastopen == null) {
             setLocationRelativeTo(null);
         } else {
             setLocation(lastopen.x + 50, lastopen.y +50);
@@ -62,13 +64,11 @@ public class UfsAclWin extends JFrame {
         lastopen = getLocation();
     }
     
-    public UfsAcl getAcl() {
-        
+    public UfsAcl getAcl() {        
         return acl;
     }
     
-    public UfsAclPanel getPanel() {
-        
+    public UfsAclPanel getPanel() {        
         return aclpanel;
     }
     
@@ -138,22 +138,22 @@ public class UfsAclWin extends JFrame {
     // </editor-fold>//GEN-END:initComponents
 
     private void applyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_applyButtonActionPerformed
-        
-        if(aclpanel.dataChanged()) {
+        if (aclpanel.dataChanged()) {
             try {
                 acl.update();
                 aclpanel.dataSaved();
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Error",
+                        JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_applyButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-        
-        if(aclpanel.dataChanged()) {
-            int answer = JOptionPane.showConfirmDialog(this, "Discard Changes?", "Confirm", JOptionPane.YES_NO_OPTION);
-            if(answer != JOptionPane.YES_OPTION) {
+        if (aclpanel.dataChanged()) {
+            int answer = JOptionPane.showConfirmDialog(this, "Discard Changes?",
+                    "Confirm", JOptionPane.YES_NO_OPTION);
+            if (answer != JOptionPane.YES_OPTION) {
                 return;
             }
         }
@@ -161,7 +161,6 @@ public class UfsAclWin extends JFrame {
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-        
         if(acl.isOwner()) {
             applyButtonActionPerformed(evt);
         }
@@ -170,16 +169,14 @@ public class UfsAclWin extends JFrame {
     
     /** Exit the Application */
     private void exitForm(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_exitForm
-        
         System.exit(0);
     }//GEN-LAST:event_exitForm
     
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        
-        if((args.length < 1) || (args[0].length() == 0)) {
+    public static void main(String args[]) {        
+        if ((args.length < 1) || (args[0].length() == 0)) {
 //            System.err.println("Usage: jfacl <file|dir name> [file|dir name[..]]");
 //            System.exit(0);
             JFileChooser chooser = new JFileChooser();

@@ -24,7 +24,7 @@
 
 package uk.ac.bham.cs.security.acl;
 
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.io.IOException;
 
 /**
@@ -34,7 +34,8 @@ import java.io.IOException;
 public class UfsAclException extends IOException {
     
     /* acl check errors */
-    private static final Hashtable errmsg = new Hashtable();
+    private static final HashMap<String, String> errmsg =
+            new HashMap<String, String>();
     static {
         errmsg.put("CHK1", "There is more than 1 Group Owner entry.");
         errmsg.put("CHK2", "There is more than 1 Owner entry.");

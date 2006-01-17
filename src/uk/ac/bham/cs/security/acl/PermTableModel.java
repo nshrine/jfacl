@@ -30,7 +30,7 @@ package uk.ac.bham.cs.security.acl;
  */
 public class PermTableModel extends javax.swing.table.AbstractTableModel {
     
-    private final String[] colnames = { "Permissions:", "Allow", "Effective" };
+    private final String[] colnames = { "Permissions for Users:", "Allow", "Effective" };
     private final Object[][] data = {
         { new String(" Read"), new Boolean(false), new Boolean(false) },
         { new String(" Write"), new Boolean(false), new Boolean(false) },
