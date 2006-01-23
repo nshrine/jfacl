@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2003-2005 Nick Shrine <N.R.Shrine@cs.bham.ac.uk>
+ * Copyright (C) 2003-2006 Nick Shrine <N.R.Shrine@cs.bham.ac.uk>
  *
  * This file is part of Jfacl.
  *
@@ -30,7 +30,7 @@ package uk.ac.bham.cs.security.acl;
  */
 public class PermTableModel extends javax.swing.table.AbstractTableModel {
     
-    private final String[] colnames = { "Permissions for Users:", "Allow", "Effective" };
+    private final String[] colnames = { "Permissions", "Allow", "Effective" };
     private final Object[][] data = {
         { new String(" Read"), new Boolean(false), new Boolean(false) },
         { new String(" Write"), new Boolean(false), new Boolean(false) },

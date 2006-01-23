@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2003-2005 Nick Shrine <N.R.Shrine@cs.bham.ac.uk>
+ * Copyright (C) 2003-2006 Nick Shrine <N.R.Shrine@cs.bham.ac.uk>
  *
  * This file is part of Jfacl.
  *
@@ -26,7 +26,9 @@ package uk.ac.bham.cs.security.acl;
 
 import javax.swing.*;
 import javax.swing.event.*;
+import javax.swing.plaf.metal.*;
 import java.awt.Point;
+
 /**
  *
  * @author  nrs
@@ -175,7 +177,9 @@ public class UfsAclWin extends JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {        
+    public static void main(String args[]) {          
+        UIManager.put("swing.boldMetal", Boolean.FALSE);
+        
         if ((args.length < 1) || (args[0].length() == 0)) {
 //            System.err.println("Usage: jfacl <file|dir name> [file|dir name[..]]");
 //            System.exit(0);
@@ -192,7 +196,7 @@ public class UfsAclWin extends JFrame {
                 }
             }
         } else {
-            for(int i=0; i<args.length; i++) {
+            for (int i = 0; i < args.length; i++) {
                 try {
                     new UfsAclWin(args[i]).setVisible(true);
                 } catch (Exception ex) {
