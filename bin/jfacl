@@ -1,11 +1,23 @@
 #!/bin/sh
 
-# Set JAVA_HOME to the location of your JDK
-#JAVA_HOME=/usr/java/jdk1.5.0
+# Set JAVA_HOME to the location of your JRE
+JAVA_HOME=/usr/java/jdk1.5.0
 
 # Set BASE to where you have installed jfacl
 BASE=/home/staff/nrs/java/jfacl
 
-LIBRARY_PATH=${BASE}/lib/`/bin/uname -s`/`/bin/uname -p`
+# Set THEME to the Java theme you prefer
+# 'ocean' is the new Java 5.0 style, I prefer the classic 'steel' look
+#THEME=ocean
+THEME=steel
 
-exec ${JAVA_HOME}/bin/java -classpath ${BASE}/lib/jfacl.jar -Djava.library.path=${LIBRARY_PATH} -Dbase=${BASE} uk.ac.bham.cs.security.acl.UfsAclWin "$*" 
+KERNEL=`/bin/uname -s`
+if [ "${KERNEL}" = "Linux" ]; then
+	ARCH=`/bin/uname -m`
+elif [ "${KERNEL}" = "SunOS" ]; then
+	ARCH=`/bin/uname -p`
+fi
+
+LIBRARY_PATH=${BASE}/lib/${KERNEL}/${ARCH}
+
+exec ${JAVA_HOME}/bin/java -classpath ${BASE}/lib/jfacl.jar -Djava.library.path=${LIBRARY_PATH} -Dbase=${BASE} -Dswing.metalTheme=${THEME} uk.ac.bham.cs.security.acl.UfsAclWin "$*" 

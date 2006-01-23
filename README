@@ -1,5 +1,5 @@
 
-		JFACL 0.4b
+		JFACL 0.4.2
 
 About
 =====
@@ -33,9 +33,10 @@ See the file INSTALL
 Rebuilding
 ==========
 In the src directory do:
-make (you need ant in your path)
-make install (installs lib/$(KERNEL)/$(PROCESSOR)/libjacl.so
+make -f Makefile.linux (you need ant in your path)
+make -f Makefile.linux install (installs lib/$(KERNEL)/$(PROCESSOR)/libjacl.so
 	and lib/jfacl.jar)
+Replace Makefile.linux with Makefile.solaris for Solaris.
 
 Release History
 ===============

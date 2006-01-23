@@ -1,4 +1,12 @@
-(rel. 0.4b) xx/12/2005 - First Linux version. Licence is now GPL. Removed
+(rel. 0.4.2) 23/1/2006 - Fix for startup script for new uname in GNU
+	coreutils.
+
+(rel. 0.4.1) 18/1/2006 - Added a dialog to enter user/group names manually.
+        Ported some code to Java 5.0 (added generics, foreach, static imports).
+        Added THEME setting to startup script; default is old Java 'steel'
+        theme.
+
+(rel. 0.4b) 2/12/2005 - First Linux version. Licence is now GPL. Removed
 	SwingWorker class.
 	
 (rel. 0.3.1) 16/2/2004 - Speed-up patch from Daniel Fahlgren. Removed

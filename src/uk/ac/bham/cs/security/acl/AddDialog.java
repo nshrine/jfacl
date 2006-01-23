@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2003-2005 Nick Shrine <N.R.Shrine@cs.bham.ac.uk>
+ * Copyright (C) 2003-2006 Nick Shrine <N.R.Shrine@cs.bham.ac.uk>
  *
  * This file is part of Jfacl.
  *
@@ -110,6 +110,7 @@ public class AddDialog extends javax.swing.JDialog implements ListCellRenderer {
         jPanel3.setPreferredSize(new java.awt.Dimension(0, 32));
         addButton.setText("Add");
         addButton.setBorder(new javax.swing.border.BevelBorder(javax.swing.border.BevelBorder.RAISED));
+        addButton.setOpaque(false);
         addButton.setPreferredSize(new java.awt.Dimension(70, 25));
         addButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -122,7 +123,7 @@ public class AddDialog extends javax.swing.JDialog implements ListCellRenderer {
         defButton.setText("Add Default");
         defButton.setBorder(new javax.swing.border.BevelBorder(javax.swing.border.BevelBorder.RAISED));
         defButton.setEnabled(DEFAULTS);
-        defButton.setPreferredSize(new java.awt.Dimension(70, 25));
+        defButton.setPreferredSize(new java.awt.Dimension(100, 25));
         defButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 defButtonActionPerformed(evt);
@@ -132,6 +133,8 @@ public class AddDialog extends javax.swing.JDialog implements ListCellRenderer {
         jPanel3.add(defButton);
 
         nameButton.setText("Enter Name");
+        nameButton.setBorder(new javax.swing.border.BevelBorder(javax.swing.border.BevelBorder.RAISED));
+        nameButton.setPreferredSize(new java.awt.Dimension(100, 25));
         nameButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nameButtonActionPerformed(evt);

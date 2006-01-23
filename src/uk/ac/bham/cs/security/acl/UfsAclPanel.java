@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2003-2005 Nick Shrine <N.R.Shrine@cs.bham.ac.uk>
+ * Copyright (C) 2003-2006 Nick Shrine <N.R.Shrine@cs.bham.ac.uk>
  *
  * This file is part of Jfacl.
  *
@@ -24,9 +24,11 @@
 
 package uk.ac.bham.cs.security.acl;
 
+import java.awt.Color;
 import javax.swing.*;
 import java.awt.Component;
 import javax.swing.event.*;
+import javax.swing.table.*;
 import java.awt.event.*;
 import java.util.*;
 //import uk.ac.bham.cs.util.SwingWorker;
@@ -48,6 +50,8 @@ public class UfsAclPanel extends JPanel implements ListSelectionListener,
     public static final ImageIcon MASK_ICON =
             new ImageIcon(BASE + "/icons/mask.png");
     
+    public static final int[] COL_WIDTHS = { 200, 50, 50 };
+    
     public final boolean EDITABLE;
     private boolean changed = false;
     
@@ -65,10 +69,16 @@ public class UfsAclPanel extends JPanel implements ListSelectionListener,
         tablemodel = new PermTableModel(EDITABLE);
         tablemodel.addTableModelListener(this);
         initComponents();
+        
         jList1.setListData(acl.toArray());
         jList1.getSelectionModel().addListSelectionListener(this);
         jList1.setCellRenderer(this);
         jList1.setSelectedIndex(lastSelectedIndex);
+        
+        for (int i = 0; i < COL_WIDTHS.length; i++) {
+            TableColumn column = jTable1.getColumnModel().getColumn(i);
+            column.setPreferredWidth(COL_WIDTHS[i]);
+        }        
     }
     
     /** This method is called from within the constructor to
@@ -78,8 +88,6 @@ public class UfsAclPanel extends JPanel implements ListSelectionListener,
      */
     // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
-
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
         jPanel1 = new javax.swing.JPanel();
@@ -136,9 +144,10 @@ public class UfsAclPanel extends JPanel implements ListSelectionListener,
         jScrollPane2.setBorder(new javax.swing.border.BevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
         jScrollPane2.setOpaque(false);
-        jScrollPane2.setPreferredSize(new java.awt.Dimension(260, 200));
+        jScrollPane2.setPreferredSize(new java.awt.Dimension(400, 200));
         jTable1.setModel(tablemodel);
-        jTable1.setPreferredSize(new java.awt.Dimension(100, 400));
+        jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_NEXT_COLUMN);
+        jTable1.setPreferredSize(new java.awt.Dimension(1000, 600));
         jTable1.setRowSelectionAllowed(false);
         jTable1.setSelectionBackground(new java.awt.Color(255, 255, 255));
         jTable1.setShowHorizontalLines(false);

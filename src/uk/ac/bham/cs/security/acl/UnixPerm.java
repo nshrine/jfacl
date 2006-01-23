@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2003-2005 Nick Shrine <N.R.Shrine@cs.bham.ac.uk>
+ * Copyright (C) 2003-2006 Nick Shrine <N.R.Shrine@cs.bham.ac.uk>
  *
  * This file is part of Jfacl.
  *
