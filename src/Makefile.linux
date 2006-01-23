@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS=-I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/linux -fPIC -DLINUX
 LDFLAGS=-shared -lacl
-ARCH=`/bin/uname -s`/`/bin/uname -p`
+ARCH=`/bin/uname -s`/`/bin/uname -m`
 
 OBJS=jacl.o getname.o getall.o linux/uacl.o
 
