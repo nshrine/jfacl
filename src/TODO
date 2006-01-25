@@ -1,2 +1,4 @@
 Perhaps ditch native code and parse IO from/to getfacl/setfacl commands
 instead.
+
+Make acl list sorted so that USER_OBJ, GROUP_OBJ, MASK and OTHERS is at top.
