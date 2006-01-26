@@ -10,18 +10,34 @@ extern "C" {
 /*
  * Class:     uk_ac_bham_cs_security_auth_module_Posix
  * Method:    getUserByName
- * Signature: (Ljava/lang/String;)Luk/ac/bham/cs/security/auth/module/Posix;
+ * Signature: (Ljava/lang/String;)Luk/ac/bham/cs/security/auth/UnixUser;
  */
 JNIEXPORT jobject JNICALL Java_uk_ac_bham_cs_security_auth_module_Posix_getUserByName
-  (JNIEnv *, jclass, jstring);
+  (JNIEnv *, jobject, jstring);
 
 /*
  * Class:     uk_ac_bham_cs_security_auth_module_Posix
  * Method:    getUserByUid
- * Signature: (J)Luk/ac/bham/cs/security/auth/module/Posix;
+ * Signature: (J)Luk/ac/bham/cs/security/auth/UnixUser;
  */
 JNIEXPORT jobject JNICALL Java_uk_ac_bham_cs_security_auth_module_Posix_getUserByUid
-  (JNIEnv *, jclass, jlong);
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     uk_ac_bham_cs_security_auth_module_Posix
+ * Method:    getGroupByName
+ * Signature: (Ljava/lang/String;)Luk/ac/bham/cs/security/auth/UnixGroup;
+ */
+JNIEXPORT jobject JNICALL Java_uk_ac_bham_cs_security_auth_module_Posix_getGroupByName
+  (JNIEnv *, jobject, jstring);
+
+/*
+ * Class:     uk_ac_bham_cs_security_auth_module_Posix
+ * Method:    getGroupByGid
+ * Signature: (J)Luk/ac/bham/cs/security/auth/UnixGroup;
+ */
+JNIEXPORT jobject JNICALL Java_uk_ac_bham_cs_security_auth_module_Posix_getGroupByGid
+  (JNIEnv *, jobject, jlong);
 
 #ifdef __cplusplus
 }
