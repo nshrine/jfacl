@@ -1,8 +1,78 @@
 #include <jni.h>
 #include "uk_ac_bham_cs_security_auth_module_Posix.h"
 #include <pwd.h>
+#include <grp.h>
 
-jobject get_jobject(JNIEnv *env, struct passwd *pwent)
+jobject get_unix_user(JNIEnv *, struct passwd *);
+jobject get_unix_group(JNIEnv *, struct group *);
+
+JNIEXPORT jobject JNICALL Java_uk_ac_bham_cs_security_auth_module_Posix_getUserByName
+        (JNIEnv *env, jclass obj, jstring jname) 
+{
+    struct passwd *pwent;
+    const char *name;
+    jobject result;
+
+    name = (*env)->GetStringUTFChars(env, jname, NULL);
+    pwent = getpwnam(name);
+    (*env)->ReleaseStringUTFChars(env, jname, name);    
+
+    if (pwent != NULL) {
+        result = get_unix_user(env, pwent);
+    }
+    
+    return result;
+}
+
+JNIEXPORT jobject JNICALL Java_uk_ac_bham_cs_security_auth_module_Posix_getUserByUid
+  (JNIEnv *env, jclass obj, jlong juid)
+{
+    struct passwd *pwent;
+    jobject result;
+    
+    pwent = getpwuid(juid);
+
+    if (pwent != NULL) {
+        result = get_unix_user(env, pwent);
+    }
+    
+    return result;
+}
+
+JNIEXPORT jobject JNICALL Java_uk_ac_bham_cs_security_auth_module_Posix_getGroupByName
+  (JNIEnv *env, jobject obj, jstring jname)
+{
+    struct group *grent;
+    const char *name;
+    jobject result;
+
+    name = (*env)->GetStringUTFChars(env, jname, NULL);
+    grent = getgrnam(name);
+    (*env)->ReleaseStringUTFChars(env, jname, name);    
+
+    if (grent != NULL) {
+        result = get_unix_group(env, grent);
+    }
+
+    return result;
+}
+
+JNIEXPORT jobject JNICALL Java_uk_ac_bham_cs_security_auth_module_Posix_getGroupByGid
+  (JNIEnv *env, jobject obj, jlong jgid)
+{
+    struct group *grent;    
+    jobject result;
+    
+    grent = getgrgid(jgid);
+
+    if (grent != NULL) {
+        result = get_unix_group(env, grent);
+    }
+
+    return result;
+}
+
+jobject get_unix_user(JNIEnv *env, struct passwd *pwent)
 {
     jclass UnixUser;
     jmethodID UnixUserCid;
@@ -22,43 +92,43 @@ jobject get_jobject(JNIEnv *env, struct passwd *pwent)
     dir = (*env)->NewStringUTF(env, pwent->pw_dir);
     shell = (*env)->NewStringUTF(env, pwent->pw_shell);
     
-    obj = (*env)->NewObject(env, UnixUser, UnixUserCid, name, password,
-            uid, gid, gecos, dir, shell);
+    obj = (*env)->NewObject(env, UnixUser, UnixUserCid,
+            name, password, uid, gid, gecos, dir, shell);
     
     return obj;
 }
 
-JNIEXPORT jobject JNICALL Java_uk_ac_bham_cs_security_auth_module_Posix_getUserByName
-        (JNIEnv *env, jclass obj, jstring jname) 
+jobject get_unix_group(JNIEnv *env, struct group *grent)
 {
-    struct passwd *pwent;
-    const char *name;
-    jobject result;
+    jclass UnixGroup, String;
+    jmethodID UnixGroupCid;
+    jobject obj;
+    jstring name, password, member;
+    jobjectArray members;
+    int i, nmem;
+    jlong gid;
 
-    name = (*env)->GetStringUTFChars(env, jname, NULL);
-    pwent = getpwnam(name);
-    (*env)->ReleaseStringUTFChars(env, jname, name);    
+    UnixGroup = (*env)->FindClass(env, "uk/ac/bham/cs/security/auth/UnixGroup");
+    String = (*env)->FindClass(env, "java/lang/String");
+    UnixGroupCid = (*env)->GetMethodID(env, UnixGroup, "<init>",
+            "(Ljava/lang/String;Ljava/lang/String;J[Ljava/lang/String;)V");
 
-    if (pwent != NULL) {
-        result = get_jobject(env, pwent);
+    name = (*env)->NewStringUTF(env, grent->gr_name);
+    password = (*env)->NewStringUTF(env, grent->gr_passwd);
+    gid = grent->gr_gid;
+    
+    nmem = 0;
+    while (grent->gr_mem[nmem] != NULL) {
+        nmem++;
+    }    
+    members = (*env)->NewObjectArray(env, nmem, String, NULL);   
+    for (i = 0; i < nmem; i++) {     
+        member = (*env)->NewStringUTF(env, grent->gr_mem[i]);
+        (*env)->SetObjectArrayElement(env, members, i, member);
     }
     
-    return result;
+    obj = (*env)->NewObject(env, UnixGroup, UnixGroupCid,
+            name, password, gid, members);
+
+    return obj;
 }
-
-JNIEXPORT jobject JNICALL Java_uk_ac_bham_cs_security_auth_module_Posix_getUserByUid
-  (JNIEnv *env, jclass obj, jlong juid)
-{
-    struct passwd *pwent;
-    jobject result;
-    
-    pwent = getpwuid(juid);
-
-    if (pwent != NULL) {
-        result = get_jobject(env, pwent);
-    }
-    
-    return result;
-}
-
-
