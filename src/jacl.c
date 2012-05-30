@@ -46,7 +46,7 @@
 
 extern int  snprintf(char *, size_t, const char *, ...);
 
-JNIEXPORT jobject JNICALL Java_uk_ac_bham_cs_security_acl_UfsAcl_getacl(
+JNIEXPORT jobject JNICALL Java_org_flimbar_security_acl_UfsAcl_getacl(
 		JNIEnv *env, jclass obj, jstring path)
 {
     int i, length;
@@ -63,8 +63,8 @@ JNIEXPORT jobject JNICALL Java_uk_ac_bham_cs_security_acl_UfsAcl_getacl(
     ArrayListCls = (*env)->FindClass(env, "java/util/ArrayList");
     ArrayListCid = (*env)->GetMethodID(env, ArrayListCls, "<init>", "()V");
     ArrayListAid = (*env)->GetMethodID(env, ArrayListCls, "add", "(Ljava/lang/Object;)Z");
-    AclExCls = (*env)->FindClass(env, "uk/ac/bham/cs/security/acl/UfsAclException");
-    AclEntCls = (*env)->FindClass(env, "uk/ac/bham/cs/security/acl/UfsAclEntry");
+    AclExCls = (*env)->FindClass(env, "org/flimbar/security/acl/UfsAclException");
+    AclEntCls = (*env)->FindClass(env, "org/flimbar/security/acl/UfsAclEntry");
     AclEntCid = (*env)->GetMethodID(env, AclEntCls, "<init>", "(IILjava/lang/String;I)V");
 
     pathp = (*env)->GetStringUTFChars(env, path, 0);
@@ -110,7 +110,7 @@ JNIEXPORT jobject JNICALL Java_uk_ac_bham_cs_security_acl_UfsAcl_getacl(
     return aclentries;
 }
 
-JNIEXPORT jint JNICALL Java_uk_ac_bham_cs_security_acl_UfsAcl_setacl(JNIEnv *env, jclass obj, jstring path, jobject aclentries, jint size)
+JNIEXPORT jint JNICALL Java_org_flimbar_security_acl_UfsAcl_setacl(JNIEnv *env, jclass obj, jstring path, jobject aclentries, jint size)
 {
     int i, which, length;
     const char *pathp;
@@ -123,8 +123,8 @@ JNIEXPORT jint JNICALL Java_uk_ac_bham_cs_security_acl_UfsAcl_setacl(JNIEnv *env
     
     ArrayListCls = (*env)->FindClass(env, "java/util/ArrayList");
     ArrayListGid = (*env)->GetMethodID(env, ArrayListCls, "get", "(I)Ljava/lang/Object;");
-    AclExCls = (*env)->FindClass(env, "uk/ac/bham/cs/security/acl/UfsAclException");
-    AclEntCls = (*env)->FindClass(env, "uk/ac/bham/cs/security/acl/UfsAclEntry");
+    AclExCls = (*env)->FindClass(env, "org/flimbar/security/acl/UfsAclException");
+    AclEntCls = (*env)->FindClass(env, "org/flimbar/security/acl/UfsAclEntry");
     AclEntTid = (*env)->GetMethodID(env, AclEntCls, "getType", "()I");
     AclEntNid = (*env)->GetMethodID(env, AclEntCls, "getId", "()I");
     AclEntPid = (*env)->GetMethodID(env, AclEntCls, "getMode", "()I");

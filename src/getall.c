@@ -34,7 +34,7 @@
 
 #define DEF_MODE 5
 
-JNIEXPORT jobject JNICALL Java_uk_ac_bham_cs_security_acl_UfsAcl_getall(JNIEnv *env, jclass obj)
+JNIEXPORT jobject JNICALL Java_org_flimbar_security_acl_UfsAcl_getall(JNIEnv *env, jclass obj)
 {    
     struct passwd *pwent;
     struct group *grent;
@@ -49,9 +49,9 @@ JNIEXPORT jobject JNICALL Java_uk_ac_bham_cs_security_acl_UfsAcl_getall(JNIEnv *
     TreeSetCid = (*env)->GetMethodID(env, TreeSetCls, "<init>", "()V");
     TreeSetAid = (*env)->GetMethodID(env, TreeSetCls, "add", "(Ljava/lang/Object;)Z");
     TreeSetSid = (*env)->GetMethodID(env, TreeSetCls, "size", "()I");    
-    AclEntCls = (*env)->FindClass(env, "uk/ac/bham/cs/security/acl/UfsAclEntry");
+    AclEntCls = (*env)->FindClass(env, "org/flimbar/security/acl/UfsAclEntry");
     AclEntCid = (*env)->GetMethodID(env, AclEntCls, "<init>", "(IILjava/lang/String;I)V");
-    AclCls = (*env)->FindClass(env, "uk/ac/bham/cs/security/acl/UfsAcl");
+    AclCls = (*env)->FindClass(env, "org/flimbar/security/acl/UfsAcl");
     SetCountid = (*env)->GetStaticMethodID(env, AclCls, "setNameCount", "(I)V");    
 
     entries = (*env)->NewObject(env, TreeSetCls, TreeSetCid);

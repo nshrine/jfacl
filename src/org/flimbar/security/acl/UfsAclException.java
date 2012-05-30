@@ -22,7 +22,7 @@
  * Created on January 21, 2003, 11:37 AM
  */
 
-package uk.ac.bham.cs.security.acl;
+package org.flimbar.security.acl;
 
 import java.util.HashMap;
 import java.io.IOException;

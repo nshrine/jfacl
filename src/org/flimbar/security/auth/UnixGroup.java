@@ -5,7 +5,7 @@
  *
  */
 
-package uk.ac.bham.cs.security.auth;
+package org.flimbar.security.auth;
 
 import java.util.*;
 import com.sun.security.auth.UnixPrincipal;

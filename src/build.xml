@@ -18,7 +18,7 @@
 	</target>
         
         <target name="run" depends="compile">
-            <java classname="uk.ac.bham.cs.security.acl.UfsAclWin" classpath="build"/>
+            <java classname="org.flimbar.security.acl.UfsAclWin" classpath="build"/>
         </target>
 
 </project>

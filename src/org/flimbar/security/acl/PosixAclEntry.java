@@ -5,12 +5,12 @@
  *
  */
 
-package uk.ac.bham.cs.security.acl;
+package org.flimbar.security.acl;
 
 import java.util.*;
 import java.security.acl.*;
 import java.security.Principal;
-import uk.ac.bham.cs.util.IteratorEnumeration;
+import org.flimbar.util.IteratorEnumeration;
 
 /**
  *

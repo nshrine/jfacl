@@ -5,7 +5,7 @@
  *
  */
 
-package uk.ac.bham.cs.security.acl;
+package org.flimbar.security.acl;
 
 import java.security.acl.Permission;
 

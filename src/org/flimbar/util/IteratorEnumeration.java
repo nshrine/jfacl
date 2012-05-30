@@ -5,7 +5,7 @@
  *
  */
 
-package uk.ac.bham.cs.util;
+package org.flimbar.util;
 
 import java.util.Enumeration;
 import java.util.Iterator;

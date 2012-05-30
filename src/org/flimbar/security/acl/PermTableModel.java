@@ -22,7 +22,7 @@
  * Created on January 27, 2003, 2:47 PM
  */
 
-package uk.ac.bham.cs.security.acl;
+package org.flimbar.security.acl;
 
 /**
  *
