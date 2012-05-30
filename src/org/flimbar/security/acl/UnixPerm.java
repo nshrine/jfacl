@@ -21,7 +21,7 @@
  *
  * Created on January 20, 2003, 12:20 PM
  */
-package uk.ac.bham.cs.security.acl;
+package org.flimbar.security.acl;
 
 /**
  *

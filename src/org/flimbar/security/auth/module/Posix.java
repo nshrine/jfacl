@@ -5,9 +5,9 @@
  *
  */
 
-package uk.ac.bham.cs.security.auth.module;
+package org.flimbar.security.auth.module;
 
-import uk.ac.bham.cs.security.auth.*;
+import org.flimbar.security.auth.*;
 
 /**
  *

@@ -22,7 +22,7 @@
  * Created on January 15, 2003, 2:14 PM
  */
 
-package uk.ac.bham.cs.security.acl;
+package org.flimbar.security.acl;
 
 import java.util.*;
 /**

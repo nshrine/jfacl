@@ -22,12 +22,12 @@
  * Created on 16 January 2006, 11:41
  */
 
-package uk.ac.bham.cs.security.acl;
+package org.flimbar.security.acl;
 
 import java.util.*;
 import javax.swing.*;
 
-import static uk.ac.bham.cs.security.acl.UfsAclEntry.*;
+import static org.flimbar.security.acl.UfsAclEntry.*;
 
 /**
  *

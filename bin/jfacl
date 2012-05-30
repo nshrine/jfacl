@@ -1,10 +1,13 @@
 #!/bin/sh
 
-# Set JAVA_HOME to the location of your JRE
-JAVA_HOME=/usr/java/jdk1.5.0
+JAVA=`which java`
+if [ -z "$JAVA" ]; then
+	echo "Cannot find java in your path"
+	exit 1
+fi
 
 # Set BASE to where you have installed jfacl
-BASE=/home/staff/nrs/java/jfacl
+BASE=`dirname $0`/..
 
 # Set THEME to the Java theme you prefer
 # 'ocean' is the new Java 5.0 style, I prefer the classic 'steel' look
@@ -20,4 +23,4 @@ fi
 
 LIBRARY_PATH=${BASE}/lib/${KERNEL}/${ARCH}
 
-exec ${JAVA_HOME}/bin/java -classpath ${BASE}/lib/jfacl.jar -Djava.library.path=${LIBRARY_PATH} -Dbase=${BASE} -Dswing.metalTheme=${THEME} uk.ac.bham.cs.security.acl.UfsAclWin "$*" 
+exec ${JAVA} -classpath ${BASE}/lib/jfacl.jar -Djava.library.path=${LIBRARY_PATH} -Dbase=${BASE} -Dswing.metalTheme=${THEME} org.flimbar.security.acl.UfsAclWin "$*" 

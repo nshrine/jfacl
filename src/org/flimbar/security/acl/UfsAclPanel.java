@@ -22,7 +22,7 @@
  * Created on January 23, 2003, 4:01 PM
  */
 
-package uk.ac.bham.cs.security.acl;
+package org.flimbar.security.acl;
 
 import java.awt.Color;
 import javax.swing.*;
@@ -31,7 +31,7 @@ import javax.swing.event.*;
 import javax.swing.table.*;
 import java.awt.event.*;
 import java.util.*;
-//import uk.ac.bham.cs.util.SwingWorker;
+//import org.flimbar.util.SwingWorker;
 
 /**
  *

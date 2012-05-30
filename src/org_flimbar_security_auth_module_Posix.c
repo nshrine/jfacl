@@ -1,12 +1,12 @@
 #include <jni.h>
-#include "uk_ac_bham_cs_security_auth_module_Posix.h"
+#include "org_flimbar_security_auth_module_Posix.h"
 #include <pwd.h>
 #include <grp.h>
 
 jobject get_unix_user(JNIEnv *, struct passwd *);
 jobject get_unix_group(JNIEnv *, struct group *);
 
-JNIEXPORT jobject JNICALL Java_uk_ac_bham_cs_security_auth_module_Posix_getUserByName
+JNIEXPORT jobject JNICALL Java_org_flimbar_security_auth_module_Posix_getUserByName
         (JNIEnv *env, jclass obj, jstring jname) 
 {
     struct passwd *pwent;
@@ -24,7 +24,7 @@ JNIEXPORT jobject JNICALL Java_uk_ac_bham_cs_security_auth_module_Posix_getUserB
     return result;
 }
 
-JNIEXPORT jobject JNICALL Java_uk_ac_bham_cs_security_auth_module_Posix_getUserByUid
+JNIEXPORT jobject JNICALL Java_org_flimbar_security_auth_module_Posix_getUserByUid
   (JNIEnv *env, jclass obj, jlong juid)
 {
     struct passwd *pwent;
@@ -39,7 +39,7 @@ JNIEXPORT jobject JNICALL Java_uk_ac_bham_cs_security_auth_module_Posix_getUserB
     return result;
 }
 
-JNIEXPORT jobject JNICALL Java_uk_ac_bham_cs_security_auth_module_Posix_getGroupByName
+JNIEXPORT jobject JNICALL Java_org_flimbar_security_auth_module_Posix_getGroupByName
   (JNIEnv *env, jobject obj, jstring jname)
 {
     struct group *grent;
@@ -57,7 +57,7 @@ JNIEXPORT jobject JNICALL Java_uk_ac_bham_cs_security_auth_module_Posix_getGroup
     return result;
 }
 
-JNIEXPORT jobject JNICALL Java_uk_ac_bham_cs_security_auth_module_Posix_getGroupByGid
+JNIEXPORT jobject JNICALL Java_org_flimbar_security_auth_module_Posix_getGroupByGid
   (JNIEnv *env, jobject obj, jlong jgid)
 {
     struct group *grent;    
@@ -80,7 +80,7 @@ jobject get_unix_user(JNIEnv *env, struct passwd *pwent)
     jstring name, password, gecos, dir, shell;
     jlong uid, gid;
 
-    UnixUser = (*env)->FindClass(env, "uk/ac/bham/cs/security/auth/UnixUser");
+    UnixUser = (*env)->FindClass(env, "org/flimbar/security/auth/UnixUser");
     UnixUserCid = (*env)->GetMethodID(env, UnixUser, "<init>",
             "(Ljava/lang/String;Ljava/lang/String;JJLjava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
     
@@ -108,7 +108,7 @@ jobject get_unix_group(JNIEnv *env, struct group *grent)
     int i, nmem;
     jlong gid;
 
-    UnixGroup = (*env)->FindClass(env, "uk/ac/bham/cs/security/auth/UnixGroup");
+    UnixGroup = (*env)->FindClass(env, "org/flimbar/security/auth/UnixGroup");
     String = (*env)->FindClass(env, "java/lang/String");
     UnixGroupCid = (*env)->GetMethodID(env, UnixGroup, "<init>",
             "(Ljava/lang/String;Ljava/lang/String;J[Ljava/lang/String;)V");
