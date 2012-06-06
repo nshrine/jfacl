@@ -26,6 +26,7 @@
 #include <grp.h>
 #include <errno.h>
 #include <string.h>
+#include <strings.h>
 #include <stdlib.h>
 
 extern int  snprintf(char *, size_t, const char *, ...);
