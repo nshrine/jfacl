@@ -6,8 +6,8 @@ if [ -z "$JAVA" ]; then
 	exit 1
 fi
 
-# Set BASE to where you have installed jfacl
-BASE=`dirname $0`/..
+[ -h $0 ] && BIN=`readlink $0` || BIN=$0
+LIB=`dirname $BIN | sed 's_/[^/]\+$__'`/lib
 
 # Set THEME to the Java theme you prefer
 # 'ocean' is the new Java 5.0 style, I prefer the classic 'steel' look
@@ -21,6 +21,4 @@ elif [ "${KERNEL}" = "SunOS" ]; then
 	ARCH=`/bin/uname -p`
 fi
 
-LIBRARY_PATH=${BASE}/lib/${KERNEL}/${ARCH}
-
-exec ${JAVA} -classpath ${BASE}/lib/jfacl.jar -Djava.library.path=${LIBRARY_PATH} -Dbase=${BASE} -Dswing.metalTheme=${THEME} org.flimbar.security.acl.UfsAclWin "$*" 
+exec ${JAVA} -Djava.library.path=${LIB} -Dswing.metalTheme=${THEME} -jar ${LIB}/jfacl.jar "$*" 

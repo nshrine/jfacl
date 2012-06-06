@@ -9,7 +9,7 @@ commmands.
 
 Licence
 =======
-See the file doc/COPYING
+See the file COPYING
 
 Requirements
 ============
@@ -40,10 +40,10 @@ Replace Makefile.linux with Makefile.solaris for Solaris.
 
 Release History
 ===============
-See the file doc/HISTORY
+See the file HISTORY
 
 
 Please report any bugs/suggestions to Nick Shrine
 
-	N.R.Shrine@cs.bham.ac.uk
+	nrgs@users.sourceforge.net
 

@@ -1,24 +1,8 @@
+PREFIX=/usr/local
 CC=gcc
 CFLAGS=-I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/solaris -Wall
 LDFLAGS=-G -lsec
-ARCH=`/bin/uname -s`/`/bin/uname -p`
-
 OBJS=jacl.o getname.o getall.o
+HEADERS=org_flimbar_security_auth_module_Posix.h ufsaclwin.h getname.h
 
-all: libjacl.so
-	ant
-
-libjacl.so: $(OBJS)
-	$(CC) -o $@ $(OBJS) $(LDFLAGS)
-
-.c.o :
-	$(CC) $(CFLAGS) $(INCLUDE) -c $*.c
-
-install: libjacl.so
-	/usr/sbin/install -d ../lib/$(ARCH)
-	/usr/sbin/install -f ../lib/$(ARCH) libjacl.so
-	ant install
-
-clean::
-	$(RM) libjacl.so *.o
-	ant clean
+include Makefile.common

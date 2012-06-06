@@ -1,0 +1,18 @@
+all: libjacl.so
+	ant
+
+libjacl.so: $(OBJS)
+	$(CC) -o $@ $(OBJS) $(LDFLAGS)
+
+.c.o : $(HEADERS)
+	$(CC) $(CFLAGS) $(INCLUDE) -c -g $*.c -o $*.o
+
+install: all
+	install -d $(PREFIX)/bin $(PREFIX)/lib
+	install -t $(PREFIX)/lib libjacl.so
+	install -t $(PREFIX)/bin jfacl
+	ant install -Dprefix=$(PREFIX)
+
+clean::
+	$(RM) libjacl.so *.o linux/*.o
+	ant clean
