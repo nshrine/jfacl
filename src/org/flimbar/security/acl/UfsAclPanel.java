@@ -40,15 +40,15 @@ import java.util.*;
 public class UfsAclPanel extends JPanel implements ListSelectionListener,
         ListCellRenderer, TableModelListener, ActionListener {        
     
-    public static final String BASE = System.getProperty("base");
+//    public static final String BASE = System.getProperty("base");
     public static final ImageIcon USER_ICON =
-            new ImageIcon(BASE + "/icons/user.png");
+            new ImageIcon(UfsAclPanel.class.getResource("/icons/user.png"));
     public static final ImageIcon GROUP_ICON =
-            new ImageIcon(BASE + "/icons/group.png");
+            new ImageIcon(UfsAclPanel.class.getResource("/icons/group.png"));
     public static final ImageIcon OTHER_ICON =
-            new ImageIcon(BASE + "/icons/other.png");
+            new ImageIcon(UfsAclPanel.class.getResource("/icons/other.png"));
     public static final ImageIcon MASK_ICON =
-            new ImageIcon(BASE + "/icons/mask.png");
+            new ImageIcon(UfsAclPanel.class.getResource("/icons/mask.png"));
     
     public static final int[] COL_WIDTHS = { 200, 50, 50 };
     

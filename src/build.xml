@@ -1,24 +1,33 @@
 <?xml version="1.0"?>
-<project name="jfacl" default="compile" basedir="..">
+<project name="jfacl" default="compile">
 
 	<target name="init">
 		<mkdir dir="build"/>
 	</target>
 
 	<target name="compile" depends="init">
-		<javac srcdir="src" destdir="build"/>
+		<javac srcdir="." destdir="build" includeantruntime="true"/>
+		<jar jarfile="jfacl.jar" basedir="build">
+			<manifest>
+				<attribute name="Main-Class" value="org.flimbar.security.acl.UfsAclWin"/>
+			</manifest>
+			<fileset dir=".">
+				<include name="icons/*.png" />
+			</fileset>
+		</jar>
 	</target>
-
+	
 	<target name="install" depends="compile">
-		<jar jarfile="lib/jfacl.jar" basedir="build"/>
+		<copy file="jfacl.jar" todir="${prefix}/lib"/>
 	</target>
 
 	<target name="clean">
+		<delete file="jfacl.jar"/>
 		<delete dir="build"/>
 	</target>
         
-        <target name="run" depends="compile">
-            <java classname="org.flimbar.security.acl.UfsAclWin" classpath="build"/>
-        </target>
+	<target name="run" depends="compile">
+		<java classname="org.flimbar.security.acl.UfsAclWin" classpath="build"/>
+	</target>
 
 </project>

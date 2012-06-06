@@ -25,7 +25,7 @@
 #include <pwd.h>
 #include <grp.h>
 #include <errno.h>
-#include <strings.h>
+#include <string.h>
 #include <stdlib.h>
 
 extern int  snprintf(char *, size_t, const char *, ...);
