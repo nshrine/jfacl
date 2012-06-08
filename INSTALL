@@ -1,6 +1,10 @@
-Edit the jfacl script and set JAVA_HOME to point to your
-JRE 5.0 installation and BASE to the directory in which you unpacked jfacl.
-Add BASE/bin to your path then run jfacl as:
- 
-        jfacl [[<file or dir>]...]
+Make sure JAVA_HOME is set, gcc and javac are in your path then:
 
+cd src
+ln -s Makefile.linux Makefile (or Makefile.solaris)
+make
+make install PREFIX=<install dir>
+
+(installs to /usr/local if you omit PREFIX)
+
+Then run from <install dir>/bin

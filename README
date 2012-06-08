@@ -1,5 +1,5 @@
 
-		JFACL 0.4.2
+		JFACL 
 
 About
 =====
@@ -22,21 +22,13 @@ otherwise Jfacl will simply act as a chmod GUI.
 See here http://acl.bestbits.at/ for information on Linux ACLs.
 
 For rebuilding:
-Java SDK 5.0
+Java SDK 5.0 upwards
 Jakarta Ant 1.4.1 upwards (http://ant.apache.org)
 GCC for the native code
 
-Installation
-============
+Rebuilding and Installation
+===========================
 See the file INSTALL
-
-Rebuilding
-==========
-In the src directory do:
-make -f Makefile.linux (you need ant in your path)
-make -f Makefile.linux install (installs lib/$(KERNEL)/$(PROCESSOR)/libjacl.so
-	and lib/jfacl.jar)
-Replace Makefile.linux with Makefile.solaris for Solaris.
 
 Release History
 ===============

@@ -7,7 +7,7 @@ if [ -z "$JAVA" ]; then
 fi
 
 [ -h $0 ] && BIN=`readlink $0` || BIN=$0
-LIB=`dirname $BIN | sed 's/bin$//'`/lib
+LIB=`dirname $BIN`/../lib
 
 # Set THEME to the Java theme you prefer
 # 'ocean' is the new Java 5.0 style, I prefer the classic 'steel' look
